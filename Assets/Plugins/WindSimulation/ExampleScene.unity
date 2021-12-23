@@ -2227,12 +2227,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Compute: {fileID: 7200000, guid: cae7aa04f7d8a324cb88dcb712d76f9a, type: 3}
-  Advect: 0
-  Diffusion: 0
+  Advect: 1
+  Diffusion: 1
   Force: 0
+  Divergence: 1
+  Pressure: 1
+  AdvectValue: 1
   _V: 0.00001
   _Iteration: 20
+  _IterationPressure: 20
+  PressureValue: 1
   Size: {x: 32, y: 32, z: 32}
-  worldPos: {x: 0.5, y: 0.5, z: 0.5}
   _WindCenter: {x: 0, y: 0, z: 0}
   _DivisionSize: {x: 16, y: 16, z: 16}
+  DisplayDivergence: 0
+  DisplayPressure: 0
+  worldPos: {x: 0.5, y: 0.5, z: 0.5}
