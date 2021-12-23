@@ -142,10 +142,10 @@ public class StableWind : MonoBehaviour
             Compute.Dispatch(Kernels.AddForce, ThreadCountX, ThreadCountY, ThreadCountZ);
         }
 
-        // Divergence
-        Compute.SetTexture(Kernels.Clear, "U_out", VFB.V1);
-        Compute.Dispatch(Kernels.Clear, ThreadCountX, ThreadCountY, ThreadCountZ);
-        Compute.SetTexture(Kernels.Divergence, "U_out", VFB.V1);
+        //// Divergence
+        //Compute.SetTexture(Kernels.Clear, "U_out", VFB.V1);
+        //Compute.Dispatch(Kernels.Clear, ThreadCountX, ThreadCountY, ThreadCountZ);
+        //Compute.SetTexture(Kernels.Divergence, "U_out", VFB.V1);
 
 
         Shader.SetGlobalTexture("_VelocityMap", VFB.V1);

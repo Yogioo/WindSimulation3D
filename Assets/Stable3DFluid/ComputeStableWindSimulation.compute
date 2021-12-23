@@ -110,7 +110,6 @@ void AddForce(uint3 tid : SV_DispatchThreadID)
 
     // U_out[tid] += distanceByCenter * DeltaTime * 1 * float3(1,0,1);
     U_out[tid] += distanceByCenter*DeltaTime * 120 * float3(1,1,1);
-    // U_out[tid] =  0;
 }
 
 [numthreads(8, 8, 8)]
