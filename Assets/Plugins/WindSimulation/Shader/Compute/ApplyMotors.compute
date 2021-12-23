@@ -1,0 +1,48 @@
+﻿#pragma kernel CSWindMain
+
+#include "../HLSL/WindComputeTools.hlsl"
+#include "../HLSL/Motors.hlsl"
+
+RWTexture3D < float4 > _FromTex, _ToTex;
+
+StructuredBuffer<MotorDirectional> _Motors;
+int _MotorCount;
+
+StructuredBuffer<MotorOmni> _OmniMotors;
+int _OmniCount;
+
+StructuredBuffer<MotorVortex> _VortexMotors;
+int _VortexCount;
+
+[numthreads(8, 8, 8)]
+void CSWindMain(uint3 id: SV_DispatchThreadID)
+{
+    if (IsBorder(id.xyz))
+    {
+        _ToTex[id.xyz] = 0;
+        return;
+    }
+    
+    
+    float3 cellPos = id;
+    float3 velocity = GetVelocity(_FromTex, id);
+    float3 currentVelocity = velocity;
+    for (int count = 0; count < _MotorCount; count ++)
+    {
+        ApplyMotorDirectional(cellPos, _Motors[count], velocity);
+    }
+    
+    for (count = 0; count < _OmniCount; count ++)
+    {
+        ApplyMotorOmni(cellPos, _OmniMotors[count], velocity);
+    }
+    
+    for (count = 0; count < _OmniCount; count ++)
+    {
+        ApplyMotorVortex(cellPos, _VortexMotors[count], velocity);
+    }
+    
+    float mag = length(velocity - currentVelocity + 0.0001);
+    
+    SetVelocity(_ToTex, id.xyz, clamp(-1000000, 1000000, velocity));
+}

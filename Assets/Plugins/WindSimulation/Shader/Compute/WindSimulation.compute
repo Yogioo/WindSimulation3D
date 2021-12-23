@@ -1,0 +1,179 @@
+﻿#pragma kernel ApplyMotors
+#pragma kernel Advect
+#pragma kernel Jacobi2
+#pragma kernel PSetup
+#pragma kernel PFinish
+#pragma kernel Jacobi1
+
+
+
+#include "../HLSL/WindComputeTools.hlsl"
+#include "../HLSL/Motors.hlsl"
+
+// common
+float DeltaTime;
+float3 CenterWS;
+
+
+RWTexture3D <float4>  W_out;
+
+Texture3D<float4> W_in;
+// U (velocity field)
+Texture3D U_in;
+SamplerState samplerU_in,samplerW_in;
+RWTexture3D<float3> U_out;
+
+StructuredBuffer<MotorDirectional> _Motors;
+int _MotorCount;
+
+StructuredBuffer<MotorOmni> _OmniMotors;
+int _OmniCount;
+
+StructuredBuffer<MotorVortex> _VortexMotors;
+int _VortexCount;
+
+//Jacobi2
+float Alpha, Beta;
+
+Texture3D<float> X1_in;
+Texture3D<float> B1_in;
+RWTexture3D<float> X1_out;
+
+Texture3D<float3> X2_in;
+Texture3D<float3> B2_in;
+RWTexture3D<float3> X2_out;
+
+// Div W
+RWTexture3D<float> DivW_out;
+
+// P (pressure field)
+Texture3D<float> P_in;
+RWTexture3D<float> P_out;
+
+
+
+[numthreads(8, 8, 8)]
+void ApplyMotors(uint3 id: SV_DispatchThreadID)
+{
+    if (IsBorder(id.xyz))
+    {
+        W_out[id.xyz] = 0;
+        return;
+    }
+
+    uint3 dim;
+    W_out.GetDimensions(dim.x, dim.y,dim.z);
+     // 获得图片uv
+    float3 uv = (id + 0.5) / dim;
+   float3 velocity =  W_in.SampleLevel(samplerW_in, uv, 0).xyz;
+    
+    float3 cellPos = id - dim/2.0  + CenterWS; 
+    
+    // float3 velocity = GetVelocity(W_in, id);
+    float3 currentVelocity = velocity;
+    for (int count = 0; count < _MotorCount; count ++)
+    {
+        ApplyMotorDirectional(cellPos, _Motors[count], velocity);
+    }
+    
+    for (count = 0; count < _OmniCount; count ++)
+    {
+        ApplyMotorOmni(cellPos, _OmniMotors[count], velocity);
+    }
+    
+    for (count = 0; count < _OmniCount; count ++)
+    {
+        ApplyMotorVortex(cellPos, _VortexMotors[count], velocity);
+    }
+    
+    W_out[id] = float4(velocity,1.0);
+}
+
+
+// Advect step 平流
+[numthreads(8, 8, 8)]
+void Advect(uint3 tid: SV_DispatchThreadID)
+{
+    uint3 dim;
+    W_out.GetDimensions(dim.x, dim.y,dim.z);
+
+    // 获得图片uv
+    float3 uv = (tid + 0.5) / dim;
+    // 当前速度 * 偏移 * 时间
+    float3 duv = U_in[tid].xyz * DeltaTime;
+
+    W_out[tid] = U_in.SampleLevel(samplerU_in, uv - duv, 0);
+}
+
+// Jacobi method with a vector field
+[numthreads(8, 8, 8)]
+void Jacobi2(uint3 tid: SV_DispatchThreadID)
+{
+    X2_out[tid] 
+    =(X2_in[tid - int3(1, 0,0)] 
+    + X2_in[tid + int3(1, 0,0)] 
+    + X2_in[tid - int3(0, 1,0)] 
+    + X2_in[tid + int3(0, 1,0)] 
+    + X2_in[tid - int3(0, 0,1)] 
+    + X2_in[tid + int3(0, 0,1)] 
+    + Alpha * B2_in[tid]) / Beta; // TOOD处理?
+}
+
+// Setup for Project step (divW calculation)
+[numthreads(8, 8, 8)]
+void PSetup(uint3 tid: SV_DispatchThreadID)
+{
+    uint3 dim;
+    W_in.GetDimensions(dim.x, dim.y,dim.z);
+
+    DivW_out[tid] 
+    = (W_in[tid + int3(1, 0, 0)].x
+     - W_in[tid - int3(1, 0, 0)].x
+     + W_in[tid + int3(0, 1, 0)].y
+     - W_in[tid - int3(0, 1, 0)].y
+     + W_in[tid + int3(0, 0, 1)].z
+     - W_in[tid - int3(0, 0, 1)].z
+    ) * .5f;//dim.x / 3;
+
+    P_out[tid] = 0;
+}
+
+// Finishing for Project step (divergence free field calculation)
+[numthreads(8, 8, 8)]
+void PFinish(uint3 tid: SV_DispatchThreadID)
+{
+    uint3 dim;
+    W_in.GetDimensions(dim.x, dim.y,dim.z);
+
+    if (any(tid == 0) || any(tid == dim - 1)) return;
+
+    float P1 = P_in[max(tid - int3(1, 0, 0), 1)];
+    float P2 = P_in[min(tid + int3(1, 0, 0), dim - 2)];
+    float P3 = P_in[max(tid - int3(0, 1, 0), 1)];
+    float P4 = P_in[min(tid + int3(0, 1, 0), dim - 2)];
+    float P5 = P_in[max(tid - int3(0, 0, 1), 1)];
+    float P6 = P_in[min(tid + int3(0, 0, 1), dim - 2)];
+
+    float3 u = W_in[tid].xyz - float3(P2 - P1, P4 - P3,P6-P5) * dim.x / 2;
+
+    U_out[tid] = u;
+
+    // if(tid.x == 1) U_out[int3(0, tid.y,0)] = -u;
+    // if(tid.y == 1) U_out[int3(tid.x, 0,0)] = -u;
+    // if(tid.x == dim.x - 2) U_out[int3(dim.x - 1, tid.y,0)] = -u;
+    // if(tid.y == dim.y - 2) U_out[int3(tid.x, dim.y - 1,0)] = -u;
+}
+
+// Jacobi method with a scalar field
+[numthreads(8, 8, 8)]
+void Jacobi1(uint3 tid: SV_DispatchThreadID)
+{
+    X1_out[tid] 
+    =(X1_in[tid - int3(1, 0, 0)] 
+    + X1_in[tid + int3(1, 0, 0)] 
+    + X1_in[tid - int3(0, 1, 0)] 
+    + X1_in[tid + int3(0, 1, 0)] 
+    + X1_in[tid - int3(0, 0, 1)] 
+    + X1_in[tid + int3(0, 0, 1)] 
+    + Alpha * B1_in[tid]) / Beta;
+}

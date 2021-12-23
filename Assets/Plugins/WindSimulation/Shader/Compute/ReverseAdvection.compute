@@ -1,0 +1,38 @@
+﻿#pragma kernel CSWindMain
+
+#include "../HLSL/WindComputeTools.hlsl"
+
+RWTexture3D < float4 > VelocityTex_Read, VelocityDensityTex, ResultTex;
+
+float DeltaTime;
+float Dissipation;
+
+float3 ReverseAdvection(float3 cellPos, float3 velocity)
+{
+    return cellPos - velocity * DeltaTime;
+}
+
+[numthreads(8, 8, 8)]
+void CSWindMain(uint3 id: SV_DispatchThreadID)
+{
+    if (IsBorder(id.xyz))
+    {
+        ResultTex[id.xyz] = 0;
+        return;
+    }
+    
+    // 1. 平流算法
+    float3 velocity = GetVelocity(VelocityTex_Read, id);
+    float3 coord = ReverseAdvection(id.xyz, velocity);
+    
+    half4 targetColor;
+    if (IsBorder(coord))
+    {
+        targetColor = 0;
+    }
+    else
+    {
+        targetColor = Bilerp(VelocityDensityTex, coord) * Dissipation;
+    }
+    ResultTex[id] = targetColor;
+}

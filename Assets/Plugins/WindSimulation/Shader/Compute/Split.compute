@@ -1,0 +1,36 @@
+﻿#pragma kernel CSWindMain
+
+#include "../HLSL/WindComputeTools.hlsl"
+
+
+RWTexture3D<float> _RTex;
+RWTexture3D<float> _GTex;
+RWTexture3D<float> _BTex;
+RWTexture3D<float4> _ResultTex;
+
+// TextureSize = float3(32,16,32)
+// Dispatch(32/8,16/8,32/8) -> 4,2,4  线程组数=4*2*4=32线程组
+//SV_DispatchThreadID.x -> (0~4) 不包含4
+//SV_DispatchThreadID.y -> (0~2) 不包含2
+//SV_DispatchThreadID.z -> (0~4) 不包含4
+[numthreads(8, 8, 8)]
+void CSWindMain(uint3 id: SV_DispatchThreadID)
+{
+    // 传入世界坐标后 能获得对应的索引
+    // uv坐标取值范围 => (0~32,0~16,0~32) 不包含后一个
+    // 世界坐标 0,0,0 = uv坐标
+    
+    //UV 坐标转世界坐标
+    // float3 worldDir = UV2World(id.xyz);
+    
+    // Diffusion
+    
+    // _FromTex[id.xyz] = float4(1, 0, 0, 1);
+    // _ToTex[id.xyz] = float4(1, 0, 0, 1);
+    
+    uint3 index = id.xyz;
+    float4 result = _ResultTex[index];
+    _RTex[index] = result.x;
+    _GTex[index] = result.y;
+    _BTex[index] = result.z;
+}

@@ -1,0 +1,32 @@
+﻿#pragma kernel CSWindMain
+
+#include "../HLSL/WindComputeTools.hlsl"
+
+RWTexture3D<float4> VelocityTex_Read;
+RWTexture3D<float> PressureTex;
+
+RWTexture3D<float4> ResultTex;
+
+[numthreads(8, 8, 8)]
+void CSWindMain(uint3 id: SV_DispatchThreadID)
+{
+    if (IsBorder(id.xyz))
+    {
+        ResultTex[id.xyz] = 0;
+        return;
+    }
+    
+    float L = PressureTex[id - uint3(1, 0, 0)].x;
+    float R = PressureTex[id + uint3(1, 0, 0)].x;
+    float F = PressureTex[id + uint3(0, 0, 1)].x;
+    float B = PressureTex[id - uint3(0, 0, 1)].x;
+    // float T = PressureTex[id + uint3(0, 1, 0)].x;
+    // float D = PressureTex[id - uint3(0, 1, 0)].x;
+    // float C = PressureTex[id ].x;
+    
+    float3 velocity = VelocityTex_Read[id].xyz;
+    // velocity -= float3(R - L, T - D, F - B);
+    velocity -= float3(R - L, 0, F - B);
+    
+    ResultTex[id] = float4(velocity, 1.0f);
+}

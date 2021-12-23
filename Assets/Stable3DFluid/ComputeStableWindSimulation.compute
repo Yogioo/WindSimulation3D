@@ -1,0 +1,120 @@
+﻿#pragma kernel Advect
+#pragma kernel Jacobi
+#pragma kernel Divergence
+#pragma kernel Gradient
+#pragma kernel AddForce
+#pragma kernel Clear
+
+float DeltaTime;
+float AdvectValue;
+
+Texture3D<float3> U_in;
+SamplerState samplerU_in;
+RWTexture3D<float3> U_out;
+RWTexture3D<float3> U_inout;
+
+Texture3D<float> P_in;
+SamplerState samplerP_in;
+RWTexture3D<float> P_out;
+float Alpha,Beta;
+
+float3 worldPos;
+
+[numthreads(8,8,8)]
+void Advect(uint3 tid : SV_DispatchThreadID)
+{
+    uint3 dim;
+    U_in.GetDimensions(dim.x,dim.y,dim.z);
+
+    float3 uv = (tid + 0.5) / dim;
+    float3 duv = AdvectValue * U_in[tid];
+
+    U_out[tid] = U_in.SampleLevel(samplerU_in, uv - duv, 0);
+}
+
+[numthreads(8, 8, 8)]
+void Jacobi(uint3 tid : SV_DispatchThreadID)
+{
+    float3 idxL = tid - int3(1, 0, 0);
+    float3 idxR = tid + int3(1, 0, 0);
+    float3 idxD = tid - int3(0, 1, 0);
+    float3 idxU = tid + int3(0, 1, 0);
+    float3 idxB = tid - int3(0, 0, 1);
+    float3 idxF = tid + int3(0, 0, 1);
+    
+    float3 L = U_inout[idxL];
+    float3 R = U_inout[idxR];
+    float3 D = U_inout[idxD];
+    float3 U = U_inout[idxU];
+    float3 B = U_inout[idxB];
+    float3 F = U_inout[idxF];
+
+    U_out[tid] = (L + R + D + U + B + F + Alpha * U_in[tid]) * Beta;
+}
+
+[numthreads(8, 8, 8)]
+void Divergence(uint3 tid : SV_DispatchThreadID)
+{
+    float3 idxL = tid - int3(1, 0, 0);
+    float3 idxR = tid + int3(1, 0, 0);
+    float3 idxD = tid - int3(0, 1, 0);
+    float3 idxU = tid + int3(0, 1, 0);
+    float3 idxB = tid - int3(0, 0, 1);
+    float3 idxF = tid + int3(0, 0, 1);
+    
+    float3 L = U_in[idxL];
+    float3 R = U_in[idxR];
+    float3 D = U_in[idxD];
+    float3 U = U_in[idxU];
+    float3 B = U_in[idxB];
+    float3 F = U_in[idxF];
+
+    float halfrdx  = 0.5f;
+    float div = ((R.x - L.x) + (U.y - D.y) + (F.z - B.z)) * halfrdx;
+}
+
+[numthreads(8, 8, 8)]
+void Gradient(uint3 tid : SV_DispatchThreadID)
+{
+    float3 idxL = tid - int3(1, 0, 0);
+    float3 idxR = tid + int3(1, 0, 0);
+    float3 idxD = tid - int3(0, 1, 0);
+    float3 idxU = tid + int3(0, 1, 0);
+    float3 idxB = tid - int3(0, 0, 1);
+    float3 idxF = tid + int3(0, 0, 1);
+    
+    float L = P_in[idxL];
+    float R = P_in[idxR];
+    float D = P_in[idxD];
+    float U = P_in[idxU];
+    float B = P_in[idxB];
+    float F = P_in[idxF];
+
+    float halfrdx  = 0.5f;
+    float3 uNew = U_out[tid];
+    uNew -= float3((R - L) , (U - D) , (F - B)) * halfrdx;
+}
+
+
+[numthreads(8, 8, 8)]
+void AddForce(uint3 tid : SV_DispatchThreadID)
+{
+    float3 dim;
+    U_out.GetDimensions(dim.x,dim.y,dim.z);
+    // U_out[tid] = (tid + 0.5) / dim.x;
+    // U_out[tid] += saturate(pow((1- distance((float3(tid.x,0,tid.z) + 0.5)/ dim.x,0.5)) ,2)*4) * DeltaTime;
+    float3 centerUV = (tid + 0.5) / dim;
+    float distanceByCenter = 1-distance(centerUV,worldPos);
+    distanceByCenter = saturate(distanceByCenter - 0.5f);
+    distanceByCenter = pow(distanceByCenter,2);
+
+    // U_out[tid] += distanceByCenter * DeltaTime * 1 * float3(1,0,1);
+    U_out[tid] += distanceByCenter*DeltaTime * 120 * float3(1,1,1);
+    // U_out[tid] =  0;
+}
+
+[numthreads(8, 8, 8)]
+void Clear(uint3 tid : SV_DispatchThreadID)
+{
+    U_out[tid] = 0;
+}

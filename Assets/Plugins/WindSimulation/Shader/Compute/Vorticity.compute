@@ -1,0 +1,41 @@
+﻿#pragma kernel CSWindMain
+
+#include "../HLSL/WindComputeTools.hlsl"
+
+RWTexture3D < float4 > VelocityTex_Read, ResultTex;
+RWTexture3D<float> CurlTex;
+
+float Curl;
+float DeltaTime;
+
+float3 ReverseAdvection(float3 cellPos, float3 velocity)
+{
+    return cellPos - velocity * DeltaTime;
+}
+
+[numthreads(8, 8, 8)]
+void CSWindMain(uint3 id: SV_DispatchThreadID)
+{
+    if (IsBorder(id.xyz))
+    {
+        ResultTex[id.xyz] = 0;
+        return;
+    }
+    
+    float L = CurlTex[id - uint3(1, 0, 0)].x;
+    float R = CurlTex[id + uint3(1, 0, 0)].x;
+    float F = CurlTex[id + uint3(0, 0, 1)].x;
+    float B = CurlTex[id - uint3(0, 0, 1)].x;
+    // float T = CurlTex[id + uint3(0, 1, 0)].x;
+    // float D = CurlTex[id - uint3(0, 1, 0)].x;
+    
+    float C = CurlTex[id].x;
+    
+    // float3 force = float3(abs(F) - abs(B), abs(T) - abs(D), abs(R) - abs(L));
+    float3 force = float3(abs(F) - abs(B), 0, abs(R) - abs(L));
+    force *= 1. / length(force + 0.00001f) * Curl * C;
+    
+    float3 vel = VelocityTex_Read[id].xyz;
+    
+    ResultTex[id] = float4(vel + force * DeltaTime, 1.0);
+}
