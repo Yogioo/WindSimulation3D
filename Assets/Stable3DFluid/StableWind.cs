@@ -131,6 +131,7 @@ namespace Wind.Core
             Compute.SetFloat("DeltaTime", dt);
             Compute.SetVector("worldPos", worldPos);
             Compute.SetVector("forceDir", forceDir);
+            Compute.SetFloat("_Time",Time.time);
 
             // Advection
             if (Advect)
@@ -155,6 +156,7 @@ namespace Wind.Core
                 beta = 1 / (6.0f + alpha);
                 Compute.SetFloat("Alpha", alpha);
                 Compute.SetFloat("Beta", beta);
+
                 Compute.SetTexture(Kernels.Jacobi, "U_in", VFB.V1);
                 for (int i = 0; i < _Iteration; i++)
                 {

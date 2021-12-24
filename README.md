@@ -13,6 +13,7 @@
 - [ ] Interactive Environment (Grass, Particle)
 - [ ] Add Move Force Motor Type
 - [ ] Refactor C# Code
+- [ ] Move Center
 
 ## Reference
 
