@@ -12,9 +12,10 @@
     }
     
     
-    bool IsBorder(float3 index)
+    bool IsBorder(in uint3 index,in float3 size)
     {
-        if (index.x <= 0 || index.x >= 31 || index.y <= 0 || index.y >= 15 || index.z <= 0 || index.z >= 31)
+        size -= 1;
+        if (index.x <= 0 || index.x >= size.x || index.y <= 0 || index.y >= size.y || index.z <= 0 || index.z >= size.z)
         {
             return true;
         }

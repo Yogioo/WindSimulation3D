@@ -46,6 +46,11 @@ void Advect(uint3 tid : SV_DispatchThreadID)
 {
     uint3 dim;
     U_in.GetDimensions(dim.x,dim.y,dim.z);
+    if (IsBorder(tid, dim))
+    {
+        U_out[tid.xyz] = 0;
+        return;
+    }
 
     float3 uv = (tid + 0.5) / dim;
     float3 duv = AdvectValue * U_in[tid];
@@ -56,6 +61,14 @@ void Advect(uint3 tid : SV_DispatchThreadID)
 [numthreads(8, 8, 8)]
 void Jacobi(uint3 tid : SV_DispatchThreadID)
 {
+    uint3 dim;
+    U_out.GetDimensions(dim.x,dim.y,dim.z);
+    if (IsBorder(tid, dim))
+    {
+        U_out[tid.xyz] = 0;
+        return;
+    }
+
     float3 idxL = tid - int3(1, 0, 0);
     float3 idxR = tid + int3(1, 0, 0);
     float3 idxD = tid - int3(0, 1, 0);
@@ -97,6 +110,14 @@ void Divergence(uint3 tid : SV_DispatchThreadID)
 [numthreads(8, 8, 8)]
 void Gradient(uint3 tid : SV_DispatchThreadID)
 {
+    uint3 dim;
+    U_out.GetDimensions(dim.x,dim.y,dim.z);
+    if (IsBorder(tid, dim))
+    {
+        U_out[tid.xyz] = 0;
+        return;
+    }
+
     float3 idxL = tid - int3(1, 0, 0);
     float3 idxR = tid + int3(1, 0, 0);
     float3 idxD = tid - int3(0, 1, 0);
@@ -134,18 +155,18 @@ void Gradient(uint3 tid : SV_DispatchThreadID)
 
 
 [numthreads(8, 8, 8)]
-void AddForce(uint3 id: SV_DispatchThreadID)
+void AddForce(uint3 tid: SV_DispatchThreadID)
 {
-    // if (IsBorder(id.xyz))
-    // {
-    //     U_out[id.xyz] = 0;
-    //     return;
-    // }
-    float3 size;
-    U_out.GetDimensions(size.x,size.y,size.z);
+    uint3 dim;
+    U_out.GetDimensions(dim.x,dim.y,dim.z);
+    if (IsBorder(tid, dim))
+    {
+        U_out[tid.xyz] = 0;
+        return;
+    }
 
-    float3 cellPos = ((id - 0.5f + 1.0f) / size - 0.5f) * 2.0f *  _DivisionSize + _WindCenter;// - size / 2.0f;
-    float3 velocity = U_out[id];
+    float3 cellPos = ((tid - 0.5f + 1.0f) / dim - 0.5f) * 2.0f *  _DivisionSize + _WindCenter;// - dim / 2.0f;
+    float3 velocity = U_out[tid];
     float3 currentVelocity = velocity;
     for (int count = 0; count < _MotorCount; count ++)
     {
@@ -168,7 +189,7 @@ void AddForce(uint3 id: SV_DispatchThreadID)
     }
 
     // float mag = length(velocity - currentVelocity + 0.0001);
-    U_out[id] = velocity;
+    U_out[tid] = velocity;
 }
 
 [numthreads(8, 8, 8)]
