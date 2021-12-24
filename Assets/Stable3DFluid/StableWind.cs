@@ -175,6 +175,7 @@ namespace Wind.Core
                 this.DirectionalConfig.UpdateComputeBuffer();
                 this.OmniConfig.UpdateComputeBuffer();
                 this.VortexConfig.UpdateComputeBuffer();
+                this.MotorBallConfig.UpdateComputeBuffer();
                 Compute.SetTexture(Kernels.AddForce, "U_out", VFB.V1);
                 Compute.Dispatch(Kernels.AddForce, ThreadCountX, ThreadCountY, ThreadCountZ);
             }
@@ -242,6 +243,7 @@ namespace Wind.Core
         public MotorDirectionalConfig DirectionalConfig;
         public MotorOmniConfig OmniConfig;
         public MotorVortexConfig VortexConfig;
+        public MotorBallConfig MotorBallConfig;
         private void InitMotors()
         {
             this.DirectionalConfig = new MotorDirectionalConfig();
@@ -250,10 +252,14 @@ namespace Wind.Core
             this.OmniConfig.InitMotorConfig();
             this.VortexConfig = new MotorVortexConfig();
             this.VortexConfig.InitMotorConfig();
+            this.MotorBallConfig = new MotorBallConfig();
+            this.MotorBallConfig.InitMotorConfig();
+            
 
             UpdateMotorDirectional();
             UpdateMotorOmni();
             UpdateMotorVortex();
+            UpdateMotorBall();
         }
         public void AddMotorDirectional(WindMotor p_Motor)
         {
@@ -293,7 +299,6 @@ namespace Wind.Core
         }
         public void AddMotorVortexMotor(WindMotor p_Motor)
         {
-
             this.VortexConfig.MotorTrans.Add(p_Motor);
             UpdateMotorVortex();
         }
@@ -310,6 +315,24 @@ namespace Wind.Core
                 UpdateMotorVortex();
             }
         }
+        public void AddMotorBall(WindMotor p_Motor)
+        {
+            this.MotorBallConfig.MotorTrans.Add(p_Motor);
+            UpdateMotorBall();
+        }
+        public void RemoveMotorBall(WindMotor p_Motor)
+        {
+            var index = this.MotorBallConfig.MotorTrans.IndexOf(p_Motor);
+            if (index > -1)
+            {
+                this.MotorBallConfig.MotorValue[index].Reset();
+            }
+
+            if (this.MotorBallConfig.MotorTrans.Remove(p_Motor))
+            {
+                UpdateMotorBall();
+            }
+        }
         private void UpdateMotorDirectional()
         {
             Compute.SetInt("_MotorCount", this.DirectionalConfig.GetCurrentIndex());
@@ -324,6 +347,11 @@ namespace Wind.Core
         {
             Compute.SetInt("_VortexCount", this.VortexConfig.GetCurrentIndex());
             Compute.SetBuffer(Kernels.AddForce, "_VortexMotors", this.VortexConfig.ComputeBuffer);
+        }
+        private void UpdateMotorBall()
+        {
+            Compute.SetInt("_BallCount", this.MotorBallConfig.GetCurrentIndex());
+            Compute.SetBuffer(Kernels.AddForce, "_BallMotors", this.MotorBallConfig.ComputeBuffer);
         }
         #endregion
     }

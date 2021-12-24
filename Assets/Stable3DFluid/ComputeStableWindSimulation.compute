@@ -37,6 +37,9 @@ int _OmniCount;
 StructuredBuffer<MotorVortex> _VortexMotors;
 int _VortexCount;
 
+StructuredBuffer<MotorBall> _BallMotors;
+int _BallCount;
+
 [numthreads(8,8,8)]
 void Advect(uint3 tid : SV_DispatchThreadID)
 {
@@ -158,6 +161,11 @@ void AddForce(uint3 id: SV_DispatchThreadID)
         ApplyMotorVortex(cellPos, _VortexMotors[count], velocity);
     }
     
+    for (count = 0; count < _BallCount; count ++)
+    {
+        ApplyMotorBall(cellPos, _BallMotors[count], velocity);
+    }
+
     // float mag = length(velocity - currentVelocity + 0.0001);
     U_out[id] = velocity;
 }

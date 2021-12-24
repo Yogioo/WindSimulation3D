@@ -77,11 +77,12 @@
     // 球风
     void ApplyMotorBall(in float3 cellPosWS, uniform MotorBall motorBall, in out float3 velocityWS){
         // 计算cell到motor的距离
-        float distanceSq = lengthSq((cellPosWS - motorBall.posWS) + 0.0001f);
+        float3 dir =  (cellPosWS - motorBall.posWS) + 0.0001f;
+        float distanceSq = lengthSq(dir);
         // 距离的平方小于motor的作用范围，加上速度
         // force = direction * strength * deltaTime
         if (distanceSq < motorBall.sqRadius)
-            velocityWS += motorBall.force * (motorBall.direction + cellPosWS - motorBall.posWS);
+            velocityWS += motorBall.force * (motorBall.direction + dir);
     }
     
 #endif

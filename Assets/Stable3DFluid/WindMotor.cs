@@ -31,7 +31,8 @@ namespace Wind.Motor
         {
             Directional,
             Vortex,
-            Omni
+            Omni,
+            Ball
         }
 
         void OnEnable()
@@ -46,6 +47,9 @@ namespace Wind.Motor
                     break;
                 case WindMode.Omni:
                     StableWind.Instance.AddMotorOmni(this);
+                    break;
+                case WindMode.Ball:
+                    StableWind.Instance.AddMotorBall(this);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -65,6 +69,9 @@ namespace Wind.Motor
                 case WindMode.Omni:
                     StableWind.Instance.RemoveMotorOmni(this);
                     break;
+                case WindMode.Ball:
+                    StableWind.Instance.RemoveMotorBall(this);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -74,7 +81,7 @@ namespace Wind.Motor
         {
             Gizmos.DrawWireSphere(this.transform.position, Radius);
 
-            if (this.WindSpawnMode == WindMode.Directional || this.WindSpawnMode == WindMode.Directional)
+            if (this.WindSpawnMode == WindMode.Directional || this.WindSpawnMode == WindMode.Directional || this.WindSpawnMode == WindMode.Ball)
             {
                 Gizmos.DrawRay(this.transform.position, this.transform.forward);
             }
