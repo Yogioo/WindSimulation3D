@@ -2,9 +2,11 @@
 
 3D Wind Simulation Made with Unity
 
-![Sample](\Document\Sample.gif)
 
-![img](\Document\img.png)
+
+![Imgur](https://i.imgur.com/0QtgCm4.gifv)
+
+![Imgur](https://i.imgur.com/iVrayFB.png)
 
 ## Reference
 
