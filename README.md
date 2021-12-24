@@ -8,12 +8,12 @@
 
 #### TODO
 
-- [ ] 边界条件处理 
-- [ ] Unstable(Noise) Force
+- [x] Bounds Handle
+- [x] Unstable(Noise) Force
 - [ ] Interactive Environment (Grass, Particle)
-- [ ] Add Move Force Motor Type
+- [x] Add Move Force Motor Type
 - [ ] Refactor C# Code
-- [ ] Move Center
+- [x] Move Center
 
 ## Reference
 
