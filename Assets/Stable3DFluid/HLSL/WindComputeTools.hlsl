@@ -21,15 +21,6 @@
         return false;
     }
     
-    float3 GetVelocity(RWTexture3D < float4 > tex, uint3 index)
-    {
-        return tex[index].xyz * 2 - 1;
-    }
-    
-    void SetVelocity(RWTexture3D < float4 > tex, uint3 index, float3 velocity)
-    {
-        tex[index] = float4(velocity / 2 + 0.5f, 1.0f);
-    }
     
     // 多线性插值图片 基于某个UV
     half4 Bilerp(RWTexture3D < float4 > tex, float3 p)

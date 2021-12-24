@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using Wind.Common;
-using Wind.Motor;
+//using Wind.Common;
+//using Wind.Motor;
 
 namespace Wind.Core
 {
@@ -59,107 +59,93 @@ namespace Wind.Core
 
 
         #region Motors
+        //public MotorDirectionalConfig DirectionalConfig;
+        //public MotorOmniConfig OmniConfig;
+        //public MotorVortexConfig VortexConfig;
+        //private void InitMotors()
+        //{
+        //    this.DirectionalConfig = new MotorDirectionalConfig();
+        //    this.DirectionalConfig.InitMotorConfig();
+        //    this.OmniConfig = new MotorOmniConfig();
+        //    this.OmniConfig.InitMotorConfig();
+        //    this.VortexConfig = new MotorVortexConfig();
+        //    this.VortexConfig.InitMotorConfig();
 
+        //    UpdateMotorDirectional();
+        //    UpdateMotorOmni();
+        //    UpdateMotorVortex();
+        //}
+        //public void AddMotorDirectional(WindMotor p_Motor)
+        //{
+        //    this.DirectionalConfig.MotorTrans.Add(p_Motor);
+        //    UpdateMotorDirectional();
+        //}
+        //public void RemoveMotorDirectional(WindMotor p_Motor)
+        //{
+        //    var index = this.DirectionalConfig.MotorTrans.IndexOf(p_Motor);
+        //    if (index > -1)
+        //    {
+        //        this.DirectionalConfig.MotorValue[index].Reset();
+        //    }
 
+        //    if (this.DirectionalConfig.MotorTrans.Remove(p_Motor))
+        //    {
+        //        UpdateMotorDirectional();
+        //    }
+        //}
+        //public void AddMotorOmni(WindMotor p_Motor)
+        //{
+        //    this.OmniConfig.MotorTrans.Add(p_Motor);
+        //    UpdateMotorOmni();
+        //}
+        //public void RemoveMotorOmni(WindMotor p_Motor)
+        //{
+        //    var index = this.OmniConfig.MotorTrans.IndexOf(p_Motor);
+        //    if (index > -1)
+        //    {
+        //        this.OmniConfig.MotorValue[index].Reset();
+        //    }
 
-        public MotorDirectionalConfig DirectionalConfig;
-        public MotorOmniConfig OmniConfig;
-        public MotorVortexConfig VortexConfig;
+        //    if (this.OmniConfig.MotorTrans.Remove(p_Motor))
+        //    {
+        //        UpdateMotorOmni();
+        //    }
+        //}
+        //public void AddMotorVortexMotor(WindMotor p_Motor)
+        //{
 
+        //    this.VortexConfig.MotorTrans.Add(p_Motor);
+        //    UpdateMotorVortex();
+        //}
+        //public void RemoveMotorVortexMotor(WindMotor p_Motor)
+        //{
+        //    var index = this.VortexConfig.MotorTrans.IndexOf(p_Motor);
+        //    if (index > -1)
+        //    {
+        //        this.VortexConfig.MotorValue[index].Reset();
+        //    }
 
-        private void InitMotors()
-        {
-            this.DirectionalConfig = new MotorDirectionalConfig();
-            this.DirectionalConfig.InitMotorConfig();
-            this.OmniConfig = new MotorOmniConfig();
-            this.OmniConfig.InitMotorConfig();
-            this.VortexConfig = new MotorVortexConfig();
-            this.VortexConfig.InitMotorConfig();
+        //    if (this.VortexConfig.MotorTrans.Remove(p_Motor))
+        //    {
+        //        UpdateMotorVortex();
+        //    }
+        //}
+        //private void UpdateMotorDirectional()
+        //{
 
-            UpdateMotorDirectional();
-            UpdateMotorOmni();
-            UpdateMotorVortex();
-        }
-
-        public void AddMotorDirectional(WindMotor p_Motor)
-        {
-            this.DirectionalConfig.MotorTrans.Add(p_Motor);
-            UpdateMotorDirectional();
-        }
-        public void RemoveMotorDirectional(WindMotor p_Motor)
-        {
-            var index = this.DirectionalConfig.MotorTrans.IndexOf(p_Motor);
-            if (index > -1)
-            {
-                this.DirectionalConfig.MotorValue[index].Reset();
-            }
-
-            if (this.DirectionalConfig.MotorTrans.Remove(p_Motor))
-            {
-                UpdateMotorDirectional();
-            }
-        }
-
-
-        public void AddMotorOmni(WindMotor p_Motor)
-        {
-            this.OmniConfig.MotorTrans.Add(p_Motor);
-            UpdateMotorOmni();
-        }
-        public void RemoveMotorOmni(WindMotor p_Motor)
-        {
-            var index = this.OmniConfig.MotorTrans.IndexOf(p_Motor);
-            if (index > -1)
-            {
-                this.OmniConfig.MotorValue[index].Reset();
-            }
-
-            if (this.OmniConfig.MotorTrans.Remove(p_Motor))
-            {
-                UpdateMotorOmni();
-            }
-        }
-
-        public void AddMotorVortexMotor(WindMotor p_Motor)
-        {
-
-            this.VortexConfig.MotorTrans.Add(p_Motor);
-            UpdateMotorVortex();
-        }
-
-        public void RemoveMotorVortexMotor(WindMotor p_Motor)
-        {
-            var index = this.VortexConfig.MotorTrans.IndexOf(p_Motor);
-            if (index > -1)
-            {
-                this.VortexConfig.MotorValue[index].Reset();
-            }
-
-            if (this.VortexConfig.MotorTrans.Remove(p_Motor))
-            {
-                UpdateMotorVortex();
-            }
-        }
-
-        private void UpdateMotorDirectional()
-        {
-
-            _compute.SetInt("_MotorCount", this.DirectionalConfig.GetCurrentIndex());
-            _compute.SetBuffer(Kernel.ApplyMotors, "_Motors", this.DirectionalConfig.ComputeBuffer);
-        }
-
-        private void UpdateMotorOmni()
-        {
-            _compute.SetInt("_OmniCount", this.OmniConfig.GetCurrentIndex());
-            _compute.SetBuffer(Kernel.ApplyMotors, "_OmniMotors", this.OmniConfig.ComputeBuffer);
-        }
-
-        private void UpdateMotorVortex()
-        {
-            _compute.SetInt("_VortexCount", this.VortexConfig.GetCurrentIndex());
-            _compute.SetBuffer(Kernel.ApplyMotors, "_VortexMotors", this.VortexConfig.ComputeBuffer);
-        }
-
+        //    _compute.SetInt("_MotorCount", this.DirectionalConfig.GetCurrentIndex());
+        //    _compute.SetBuffer(Kernel.ApplyMotors, "_Motors", this.DirectionalConfig.ComputeBuffer);
+        //}
+        //private void UpdateMotorOmni()
+        //{
+        //    _compute.SetInt("_OmniCount", this.OmniConfig.GetCurrentIndex());
+        //    _compute.SetBuffer(Kernel.ApplyMotors, "_OmniMotors", this.OmniConfig.ComputeBuffer);
+        //}
+        //private void UpdateMotorVortex()
+        //{
+        //    _compute.SetInt("_VortexCount", this.VortexConfig.GetCurrentIndex());
+        //    _compute.SetBuffer(Kernel.ApplyMotors, "_VortexMotors", this.VortexConfig.ComputeBuffer);
+        //}
         #endregion
         /// <summary>
         /// Vector Field Buffers
@@ -193,7 +179,7 @@ namespace Wind.Core
         void OnEnable()
         {
             _instance = this;
-            InitMotors();
+            //InitMotors();
         }
         void Start()
         {
@@ -211,9 +197,9 @@ namespace Wind.Core
             Destroy(VFB.V3);
             Destroy(VFB.P1);
             Destroy(VFB.P2);
-            this.DirectionalConfig.Dispose();
-            this.OmniConfig.Dispose();
-            this.VortexConfig.Dispose();
+            //this.DirectionalConfig.Dispose();
+            //this.OmniConfig.Dispose();
+            //this.VortexConfig.Dispose();
         }
 
 
@@ -251,12 +237,12 @@ namespace Wind.Core
             }
 
             //ApplyMotors
-            this.DirectionalConfig.UpdateComputeBuffer();
-            this.OmniConfig.UpdateComputeBuffer();
-            this.VortexConfig.UpdateComputeBuffer();
-            _compute.SetTexture(Kernel.ApplyMotors, "W_in", VFB.V2);
-            _compute.SetTexture(Kernel.ApplyMotors, "W_out", VFB.V3);
-            _compute.Dispatch(Kernel.ApplyMotors, ThreadCountX, ThreadCountY, ThreadCountZ);
+            //this.DirectionalConfig.UpdateComputeBuffer();
+            //this.OmniConfig.UpdateComputeBuffer();
+            //this.VortexConfig.UpdateComputeBuffer();
+            //_compute.SetTexture(Kernel.ApplyMotors, "W_in", VFB.V2);
+            //_compute.SetTexture(Kernel.ApplyMotors, "W_out", VFB.V3);
+            //_compute.Dispatch(Kernel.ApplyMotors, ThreadCountX, ThreadCountY, ThreadCountZ);
 
             // //// Projection setup
             // _compute.SetTexture(Kernel.PSetup, "W_in", VFB.V3);

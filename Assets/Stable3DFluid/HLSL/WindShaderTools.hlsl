@@ -10,7 +10,7 @@
     }
     
     float3 Sample3DWind(float3 worldPos){
-        return abs(tex3D(_VelocityMap, Wolrd2UV(worldPos)).xyz);
+        return tex3D(_VelocityMap, Wolrd2UV(worldPos)).xyz;
     }
 
     float3 GetWindForce(float3 worldPos)

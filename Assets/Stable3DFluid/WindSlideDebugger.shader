@@ -2,6 +2,8 @@
 {
     Properties { 
         _Alpha("Alpha",Range(0,1)) = 0.1
+        
+        [Toggle]_DisplayGrayMap("Display Gray Map",Int) = 0
     }
     SubShader
     {
@@ -44,19 +46,20 @@
             }
 
             float _Alpha;
+            int _DisplayGrayMap;
             
             fixed4 frag(v2f i): SV_Target
             {
                 // 计算与风场中间的距离, 基于距离采样, 然后基于贴图大小缩放
                 // fixed4 col = tex3D(_WindTex, Wolrd2UV(i.worlduv));
                 float4 col = float4(1, 1, 1, 1);
-                col.xyz = GetWindForce(i.worlduv.xyz);
+                if(_DisplayGrayMap){
+                    col.xyz = abs(GetWindForce(i.worlduv.xyz)); 
+                    col.xyz = max(max(col.x,col.y),col.z);
+                }else{
+                    col.xyz = GetWindForce(i.worlduv.xyz) + 0.5f; 
+                }
                 col.a = _Alpha;
-                // col.xyz = Sample3DPressure(i.worlduv.xyz);
-                // col.xyz = col.x+col.y+col.z;
-                // if(any(col.xyz) <= 0.1f){
-                //     col = 0.3f;
-                // }
                 return col;
             }
             ENDCG

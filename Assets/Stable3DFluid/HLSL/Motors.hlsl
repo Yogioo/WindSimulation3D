@@ -22,6 +22,12 @@
         float radiusSq;
         float3 axis;
     };
+    struct MotorBall{
+        float3 posWS;
+        float force;
+        float sqRadius;
+        float3 direction;
+    };
     
     float lengthSq(float3 Vec)
     {
@@ -35,8 +41,11 @@
         float distanceSq = lengthSq((cellPosWS - motorDirectional.posWS) + 0.0001f);
         // 距离的平方小于motor的作用范围，加上速度
         // force = direction * strength * deltaTime
+
         if (distanceSq < motorDirectional.sqRadius)
             velocityWS += motorDirectional.force * motorDirectional.direction;
+
+        // velocityWS = lengthSq(cellPosWS);//motorDirectional.posWS;//length(cellPosWS - motorDirectional.posWS + 0.0001f);
     }
     
     // 全向风，作用朝四面八方，辐射出去，存在作用半径radius
@@ -63,6 +72,16 @@
         // 速度受到作用半径和螺旋风轴向叉乘的影响
         if (distanceSq < motorVortex.radiusSq)
             velocityWS += motorVortex.force * cross(motorVortex.axis, rsqrt(distanceSq) * differenceWs);
+    }
+
+    // 球风
+    void ApplyMotorBall(in float3 cellPosWS, uniform MotorBall motorBall, in out float3 velocityWS){
+        // 计算cell到motor的距离
+        float distanceSq = lengthSq((cellPosWS - motorBall.posWS) + 0.0001f);
+        // 距离的平方小于motor的作用范围，加上速度
+        // force = direction * strength * deltaTime
+        if (distanceSq < motorBall.sqRadius)
+            velocityWS += motorBall.force * (motorBall.direction + cellPosWS - motorBall.posWS);
     }
     
 #endif

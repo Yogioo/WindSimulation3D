@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Masaka_WindSimulation_WindSlideDebugger
-  m_Shader: {fileID: 4800000, guid: 247a2bd4c98608e40bf82b4ae6815ae2, type: 3}
+  m_Name: Unlit_StableWindDebugger
+  m_Shader: {fileID: 4800000, guid: f6ef3df7aeaee524786fe7e4a063a677, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -18,8 +18,10 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
-    m_Floats:
-    - _Alpha: 1
-    - _DisplayGrayMap: 0
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: db3a3456773bc5b4e84071a11e9ed14f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats: []
     m_Colors: []

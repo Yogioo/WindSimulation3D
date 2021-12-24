@@ -24,7 +24,18 @@ Texture3D<float> Dv_in;
 
 float Alpha,Beta;
 
-float3 worldPos;
+// Force
+#include "./HLSL/WindComputeTools.hlsl"
+#include "./HLSL/Motors.hlsl"
+
+StructuredBuffer<MotorDirectional> _Motors;
+int _MotorCount;
+
+StructuredBuffer<MotorOmni> _OmniMotors;
+int _OmniCount;
+
+StructuredBuffer<MotorVortex> _VortexMotors;
+int _VortexCount;
 
 [numthreads(8,8,8)]
 void Advect(uint3 tid : SV_DispatchThreadID)
@@ -96,25 +107,59 @@ void Gradient(uint3 tid : SV_DispatchThreadID)
     float B = P_in[idxB];
     float F = P_in[idxF];
 
-    float halfrdx  = 0.5f;
+    float halfrdx  = 1.0f/3.0f;
     U_out[tid] -= float3((R - L) , (U - D) , (F - B)) * halfrdx;
 }
 
 
-[numthreads(8, 8, 8)]
-void AddForce(uint3 tid : SV_DispatchThreadID)
-{
-    float3 dim;
-    U_out.GetDimensions(dim.x,dim.y,dim.z);
-    // U_out[tid] = (tid + 0.5) / dim.x;
-    // U_out[tid] += saturate(pow((1- distance((float3(tid.x,0,tid.z) + 0.5)/ dim.x,0.5)) ,2)*4) * DeltaTime;
-    float3 centerUV = (tid + 0.5) / dim;
-    float distanceByCenter = 1-distance(centerUV,worldPos);
-    distanceByCenter = saturate(distanceByCenter - 0.5f);
-    distanceByCenter = pow(distanceByCenter,2);
+// [numthreads(8, 8, 8)]
+// void AddForce(uint3 tid : SV_DispatchThreadID)
+// {
+//     float3 dim;
+//     U_out.GetDimensions(dim.x,dim.y,dim.z);
+//     // U_out[tid] = (tid + 0.5) / dim.x;
+//     // U_out[tid] += saturate(pow((1- distance((float3(tid.x,0,tid.z) + 0.5)/ dim.x,0.5)) ,2)*4) * DeltaTime;
+//     float3 centerUV = (tid + 0.5) / dim;
+//     float distanceByCenter = 1-distance(centerUV,worldPos);
+//     distanceByCenter = saturate(distanceByCenter - 0.5f);
+//     distanceByCenter = pow(distanceByCenter,2);
 
-    // U_out[tid] += distanceByCenter * DeltaTime * 1 * float3(1,0,1);
-    U_out[tid] += distanceByCenter*DeltaTime * 50 * float3(1,1,1);
+//     // U_out[tid] += distanceByCenter * DeltaTime * 1 * float3(1,0,1);
+//     U_out[tid] += distanceByCenter*DeltaTime * 50 * forceDir;
+// }
+
+[numthreads(8, 8, 8)]
+void AddForce(uint3 id: SV_DispatchThreadID)
+{
+    // if (IsBorder(id.xyz))
+    // {
+    //     U_out[id.xyz] = 0;
+    //     return;
+    // }
+    float3 size;
+    U_out.GetDimensions(size.x,size.y,size.z);
+
+    float3 _WindAreaSize = float3(16,16,16);
+    float3 cellPos = ((id - 0.5f + 1.0f) / size - 0.5f) * 2.0f *  _WindAreaSize;// - size / 2.0f;
+    float3 velocity = U_out[id];
+    float3 currentVelocity = velocity;
+    for (int count = 0; count < _MotorCount; count ++)
+    {
+        ApplyMotorDirectional(cellPos, _Motors[count], velocity);
+    }
+    
+    for (count = 0; count < _OmniCount; count ++)
+    {
+        ApplyMotorOmni(cellPos, _OmniMotors[count], velocity);
+    }
+    
+    for (count = 0; count < _VortexCount; count ++)
+    {
+        ApplyMotorVortex(cellPos, _VortexMotors[count], velocity);
+    }
+    
+    // float mag = length(velocity - currentVelocity + 0.0001);
+    U_out[id] = velocity;
 }
 
 [numthreads(8, 8, 8)]
@@ -150,3 +195,8 @@ void JacobiPressure(uint3 tid : SV_DispatchThreadID)
 
     P_out[tid] = (L + R + D + U + B + F + Alpha * Dv_in[tid]) * Beta;
 }
+
+
+
+
+

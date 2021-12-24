@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Wind.Common;
 using Wind.Core;
 
 namespace Wind.Motor
@@ -9,7 +8,6 @@ namespace Wind.Motor
     {
         public float Radius;
         public float Force;
-
 
         public WindMode WindSpawnMode
         {
@@ -41,13 +39,13 @@ namespace Wind.Motor
             switch (WindSpawnMode)
             {
                 case WindMode.Directional:
-                    WindSimulationCore.Instance.AddMotorDirectional(this);
+                    StableWind.Instance.AddMotorDirectional(this);
                     break;
                 case WindMode.Vortex:
-                    WindSimulationCore.Instance.AddMotorVortexMotor(this);
+                    StableWind.Instance.AddMotorVortexMotor(this);
                     break;
                 case WindMode.Omni:
-                    WindSimulationCore.Instance.AddMotorOmni(this);
+                    StableWind.Instance.AddMotorOmni(this);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -59,13 +57,13 @@ namespace Wind.Motor
             switch (WindSpawnMode)
             {
                 case WindMode.Directional:
-                    WindSimulationCore.Instance.RemoveMotorDirectional(this);
+                    StableWind.Instance.RemoveMotorDirectional(this);
                     break;
                 case WindMode.Vortex:
-                    WindSimulationCore.Instance.RemoveMotorVortexMotor(this);
+                    StableWind.Instance.RemoveMotorVortexMotor(this);
                     break;
                 case WindMode.Omni:
-                    WindSimulationCore.Instance.RemoveMotorOmni(this);
+                    StableWind.Instance.RemoveMotorOmni(this);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

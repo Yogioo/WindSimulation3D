@@ -30,8 +30,7 @@ namespace Wind.Common
         {
             for (int i = 0; i < MotorTrans.Count; i++)
             {
-                var p = (MotorTrans[i].transform.position) ;
-                MotorValue[i].posWS = p;
+                MotorValue[i].posWS = MotorTrans[i].transform.position;
                 MotorValue[i].force = MotorTrans[i].Force * Time.deltaTime;
                 MotorValue[i].direction = MotorTrans[i].transform.forward;
                 MotorValue[i].sqRadius = Mathf.Pow(MotorTrans[i].Radius,2);
