@@ -54,7 +54,7 @@
 }
 
     float noiseForce(in float3 cellPos){
-        return Random3DTo3D(cellPos * _Time / 5.0f);
+        return Random3DTo3D(cellPos + _Time );
     }
     
     // 平行风，out返回float3的velocity

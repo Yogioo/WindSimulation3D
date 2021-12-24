@@ -23,6 +23,7 @@ RWTexture3D<float> Dv_out;
 Texture3D<float> Dv_in;
 
 float Alpha,Beta;
+float3 _DivisionSize,_WindCenter;
 
 // Force
 #include "./HLSL/WindComputeTools.hlsl"
@@ -131,6 +132,7 @@ void Gradient(uint3 tid : SV_DispatchThreadID)
 //     U_out[tid] += distanceByCenter*DeltaTime * 50 * forceDir;
 // }
 
+
 [numthreads(8, 8, 8)]
 void AddForce(uint3 id: SV_DispatchThreadID)
 {
@@ -142,8 +144,7 @@ void AddForce(uint3 id: SV_DispatchThreadID)
     float3 size;
     U_out.GetDimensions(size.x,size.y,size.z);
 
-    float3 _WindAreaSize = float3(16,16,16);
-    float3 cellPos = ((id - 0.5f + 1.0f) / size - 0.5f) * 2.0f *  _WindAreaSize;// - size / 2.0f;
+    float3 cellPos = ((id - 0.5f + 1.0f) / size - 0.5f) * 2.0f *  _DivisionSize + _WindCenter;// - size / 2.0f;
     float3 velocity = U_out[id];
     float3 currentVelocity = velocity;
     for (int count = 0; count < _MotorCount; count ++)

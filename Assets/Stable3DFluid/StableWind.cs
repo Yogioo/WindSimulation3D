@@ -58,7 +58,7 @@ namespace Wind.Core
 
 
         public Vector3Int Size = new Vector3Int(32, 16, 32);
-        public Vector3 _WindCenter, _DivisionSize;
+        private Vector3 _WindCenter, _DivisionSize;
 
         int ThreadCountX { get { return Size.x / 8; } }
         int ThreadCountY { get { return Size.y / 8; } }
@@ -98,7 +98,7 @@ namespace Wind.Core
         }
         void Start()
         {
-
+            _DivisionSize = new Vector3(ResolutionX / 2.0f, ResolutionY/2.0f, ResolutionZ / 2.0f);
             VFB.V1 = AllocateBuffer(3);
             VFB.V2 = AllocateBuffer(3);
             VFB.V3 = AllocateBuffer(3);
@@ -237,7 +237,7 @@ namespace Wind.Core
                 Shader.SetGlobalTexture("_VelocityMap", VFB.V1);
             }
 
-            Shader.SetGlobalVector("_WindCenter", _WindCenter);
+            Shader.SetGlobalVector("_WindCenter", this.transform.position);
             Shader.SetGlobalVector("_DivisionSize", _DivisionSize);
         }
 
