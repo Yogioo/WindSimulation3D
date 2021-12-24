@@ -279,8 +279,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 475689569}
-  - component: {fileID: 475689568}
-  - component: {fileID: 475689567}
   - component: {fileID: 475689566}
   m_Layer: 0
   m_Name: WindCenter
@@ -1434,69 +1432,6 @@ MonoBehaviour:
       force: 0
       radiusSq: 0
       axis: {x: 0, y: 0, z: 0}
---- !u!114 &475689567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475689565}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 134eee3b39435e348bdf31825faf645b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _viscosity: 0.0003
-  _interpolate: 50
-  _compute: {fileID: 7200000, guid: 3f70da07b7687444f93a360b2d07327d, type: 3}
-  Resolution: {x: 32, y: 16, z: 32}
-  Count: 20
---- !u!114 &475689568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475689565}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d6b969d5f5f6ba41a454aed8c4084aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BufferSize: {x: 32, y: 16, z: 32}
-  VelocityRT1: {fileID: 0}
-  VelocityRT2: {fileID: 0}
-  DensityRT1: {fileID: 0}
-  DensityRT2: {fileID: 0}
-  CurlRT: {fileID: 0}
-  DivergenceRT: {fileID: 0}
-  PressureRT2: {fileID: 0}
-  PressureRT1: {fileID: 0}
-  AdvectionCompute: {fileID: 7200000, guid: 62497decf3f82a54f9a98e602b5b41d3, type: 3}
-  ApplyMotorCompute: {fileID: 7200000, guid: ed7f5d88779c2394fa2165e05af69f4d, type: 3}
-  CurlCompute: {fileID: 7200000, guid: b087025ecc2e7494fa83ccbe6a343fa9, type: 3}
-  VorticityCompute: {fileID: 7200000, guid: 051a4bcf4996c584680bf513bd3f565e, type: 3}
-  DivergenceCompute: {fileID: 7200000, guid: 1887532f0b0d79147860dce74d526aa1, type: 3}
-  PressureCompute: {fileID: 7200000, guid: f2f857b639551bf419ae882485779e48, type: 3}
-  SubtractCompute: {fileID: 7200000, guid: 49329756d7cb8e44c9b7ec3c2ada79dc, type: 3}
-  CombineCompute: {fileID: 7200000, guid: 95d00903ad0316a409d0fcce5c2e8a88, type: 3}
-  SplitCompute: {fileID: 7200000, guid: 8f785b8ea9f9ef74a86608546f964eaa, type: 3}
-  DirectionalConfig:
-    MotorTrans: []
-    MotorValue: []
-  OmniConfig:
-    MotorTrans: []
-    MotorValue: []
-  VortexConfig:
-    MotorTrans: []
-    MotorValue: []
-  divisionSize: {x: 0, y: 0, z: 0}
-  MotorsOn: 1
-  AdvectionOn: 1
-  DensityDiffusion: 1
-  VelocityDiffusion: 1
-  Iterations: 50
-  Vorticity: 50.1
 --- !u!4 &475689569
 Transform:
   m_ObjectHideFlags: 0

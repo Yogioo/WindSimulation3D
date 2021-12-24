@@ -126,8 +126,7 @@ namespace Wind.Core
         void Update()
         {
             float dt = Time.deltaTime;
-            float dx, alpha, beta;
-            dx = 1.0f / ResolutionX;
+            float alpha, beta;
 
             Compute.SetFloat("DeltaTime", dt);
             Compute.SetVector("worldPos", worldPos);
