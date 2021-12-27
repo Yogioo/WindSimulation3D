@@ -1859,7 +1859,7 @@ Transform:
   m_GameObject: {fileID: 79301156}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 32, y: 0.1, z: 32}
+  m_LocalScale: {x: 64, y: 0.1, z: 64}
   m_Children: []
   m_Father: {fileID: 1979782156}
   m_RootOrder: 1
@@ -19960,8 +19960,8 @@ MonoBehaviour:
   _V: 0.00000001
   _Iteration: 25
   _IterationPressure: 20
-  PressureValue: 1
-  Size: {x: 32, y: 32, z: 32}
+  PressureValue: 4
+  Size: {x: 64, y: 32, z: 64}
   DisplayDivergence: 0
   DisplayPressure: 0
   worldPos: {x: 0.5, y: 0.5, z: 0.5}

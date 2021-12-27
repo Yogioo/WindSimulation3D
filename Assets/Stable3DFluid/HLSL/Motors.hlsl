@@ -63,8 +63,6 @@
         // 计算cell到motor的距离
         float distanceSq = lengthSq((cellPosWS - motorDirectional.posWS) + 0.0001f);
         // 距离的平方小于motor的作用范围，加上速度
-        // force = direction * strength * deltaTime
-
         if (distanceSq < motorDirectional.sqRadius)
             velocityWS += motorDirectional.force * motorDirectional.direction * noiseForce(cellPosWS);
 

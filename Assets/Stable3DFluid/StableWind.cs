@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 using Wind.Common;
 using Wind.Motor;
@@ -98,7 +99,7 @@ namespace Wind.Core
         }
         void Start()
         {
-            _DivisionSize = new Vector3(ResolutionX / 2.0f, ResolutionY/2.0f, ResolutionZ / 2.0f);
+            _DivisionSize = new Vector3(ResolutionX / 2.0f, ResolutionY / 2.0f, ResolutionZ / 2.0f);
             VFB.V1 = AllocateBuffer(3);
             VFB.V2 = AllocateBuffer(3);
             VFB.V3 = AllocateBuffer(3);
@@ -106,7 +107,7 @@ namespace Wind.Core
             VFB.P1 = AllocateBuffer(1);
             VFB.P2 = AllocateBuffer(1);
             VFB.P3 = AllocateBuffer(1);
-            
+
         }
         void OnDestroy()
         {
@@ -131,15 +132,17 @@ namespace Wind.Core
             Compute.SetFloat("DeltaTime", dt);
             Compute.SetVector("worldPos", worldPos);
             Compute.SetVector("forceDir", forceDir);
-            Compute.SetFloat("_Time",Time.time);
+            Compute.SetFloat("_Time", Time.time);
 
             // Advection
             if (Advect)
             {
+                Profiler.BeginSample("WindSimulate.Advection");
                 Compute.SetFloat("AdvectValue", AdvectValue * dt);
                 Compute.SetTexture(Kernels.Advect, "U_in", VFB.V1);
                 Compute.SetTexture(Kernels.Advect, "U_out", VFB.V2);
                 Compute.Dispatch(Kernels.Advect, ThreadCountX, ThreadCountY, ThreadCountZ);
+                Profiler.EndSample();
             }
             else
             {
@@ -152,6 +155,7 @@ namespace Wind.Core
             // Diffusion
             if (Diffusion)
             {
+                Profiler.BeginSample("WindSimulate.Diffusion");
                 alpha = 1 / _V * dt;
                 beta = 1 / (6.0f + alpha);
                 Compute.SetFloat("Alpha", alpha);
@@ -170,16 +174,19 @@ namespace Wind.Core
                     Compute.Dispatch(Kernels.Jacobi, ThreadCountX, ThreadCountY, ThreadCountZ);
                 }
                 Graphics.CopyTexture(VFB.V3, VFB.V1);
+                Profiler.EndSample();
             }
 
             if (Force)
             {
+                Profiler.BeginSample("WindSimulate.Force");
                 this.DirectionalConfig.UpdateComputeBuffer();
                 this.OmniConfig.UpdateComputeBuffer();
                 this.VortexConfig.UpdateComputeBuffer();
                 this.MotorBallConfig.UpdateComputeBuffer();
                 Compute.SetTexture(Kernels.AddForce, "U_out", VFB.V1);
                 Compute.Dispatch(Kernels.AddForce, ThreadCountX, ThreadCountY, ThreadCountZ);
+                Profiler.EndSample();
             }
 
             // Divergence
@@ -187,13 +194,16 @@ namespace Wind.Core
             // Divergence Init
             if (Divergence)
             {
+                Profiler.BeginSample("WindSimulate.Divergence");
                 Compute.SetTexture(Kernels.Divergence, "U_in", VFB.V1);
                 Compute.SetTexture(Kernels.Divergence, "Dv_out", VFB.DV);
                 Compute.Dispatch(Kernels.Divergence, ThreadCountX, ThreadCountY, ThreadCountZ);
+                Profiler.EndSample();
             }
 
             if (Pressure)
             {
+                Profiler.BeginSample("WindSimulate.Pressure");
                 // Clear Pressure
                 Compute.SetTexture(Kernels.Clear3D, "P_out", VFB.P1);
                 Compute.Dispatch(Kernels.Clear3D, ThreadCountX, ThreadCountY, ThreadCountZ);
@@ -218,6 +228,7 @@ namespace Wind.Core
                 Compute.SetTexture(Kernels.Gradient, "P_in", VFB.P1);
                 Compute.SetTexture(Kernels.Gradient, "U_out", VFB.V1);
                 Compute.Dispatch(Kernels.Gradient, ThreadCountX, ThreadCountY, ThreadCountZ);
+                Profiler.EndSample();
             }
 
             if (DisplayDivergence)
@@ -229,7 +240,7 @@ namespace Wind.Core
                 //var tmp = VFB.P3;
                 //VFB.P3 = VFB.P1;
                 //VFB.P1 = tmp;
-                Graphics.CopyTexture(VFB.P1,VFB.P3);
+                Graphics.CopyTexture(VFB.P1, VFB.P3);
                 Shader.SetGlobalTexture("_VelocityMap", VFB.P3);
             }
             else
@@ -256,7 +267,7 @@ namespace Wind.Core
             this.VortexConfig.InitMotorConfig();
             this.MotorBallConfig = new MotorBallConfig();
             this.MotorBallConfig.InitMotorConfig();
-            
+
 
             UpdateMotorDirectional();
             UpdateMotorOmni();

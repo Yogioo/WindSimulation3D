@@ -89,6 +89,14 @@ void Jacobi(uint3 tid : SV_DispatchThreadID)
 [numthreads(8, 8, 8)]
 void Divergence(uint3 tid : SV_DispatchThreadID)
 {
+    uint3 dim;
+    Dv_out.GetDimensions(dim.x,dim.y,dim.z);
+    if (IsBorder(tid, dim))
+    {
+        Dv_out[tid.xyz] = 0;
+        return;
+    }
+
     float3 idxL = tid - int3(1, 0, 0);
     float3 idxR = tid + int3(1, 0, 0);
     float3 idxD = tid - int3(0, 1, 0);
