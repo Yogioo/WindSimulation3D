@@ -71,12 +71,16 @@
                 float distMulti = 1;//(distLimit - min(distLimit, distance(float3(worldPos.x, 0, worldPos.z), float3(_obstacle.x, 0, _obstacle.z)))) / distLimit; //distance falloff
                 
                 // 草越高 那就移动的越多, 反之越少
-                float hight = sin(pow(3.14 * vertex.y, 0.2)) - 0.9;
+                float hight = saturate(v.vertex.y/_affectDist);// sin(pow(3.14 * vertex.y, 0.2)) - 0.9;
                 // Color.a是在模型上面控制了顶点颜色的透明度
-                vertex.xz += bendDir.xz * distMulti * hight * _MultiMove;
+                float2 moveXZ = bendDir.xz * distMulti * hight * _MultiMove;
+                float moveY = length(moveXZ) * hight;
+                vertex.xz += moveXZ;
+                vertex.y -= moveY;
                 o.vertex = UnityWorldToClipPos(vertex);
                 o.vertexColor = hight;
                 
+
                 return o;
             }
             
