@@ -6,6 +6,7 @@
 #pragma kernel Clear
 #pragma kernel Clear3D
 #pragma kernel JacobiPressure
+#pragma kernel Move
 
 
 float DeltaTime;
@@ -24,6 +25,7 @@ Texture3D<float> Dv_in;
 
 float Alpha,Beta;
 float3 _DivisionSize,_WindCenter;
+float3 _MoveDir;
 
 // Force
 #include "./HLSL/WindComputeTools.hlsl"
@@ -236,5 +238,23 @@ void JacobiPressure(uint3 tid : SV_DispatchThreadID)
 
 
 
+[numthreads(8,8,8)]
+void Move(uint3 tid : SV_DispatchThreadID)
+{
+    uint3 dim;
+    U_in.GetDimensions(dim.x,dim.y,dim.z);
+    if (IsBorder(tid, dim))
+    {
+        U_out[tid.xyz] = 0;
+        return;
+    }
+
+    float3 duv = _MoveDir;
+    float3 uv = (tid + 0.5) / dim;
+    float3 inValue = U_in.SampleLevel(samplerU_in, uv - duv, 0);
+
+
+    U_out[tid] = inValue;
+}
 
 

@@ -18,6 +18,7 @@ namespace Wind.Core
             public const int Clear = 5;
             public const int Clear3D = 6;
             public const int JacobiPressure = 7;
+            public const int Move = 8;
 
         }
         static class VFB
@@ -36,11 +37,13 @@ namespace Wind.Core
 
         public ComputeShader Compute;
 
-        public bool Advect = true;
-        public bool Diffusion = true;
-        public bool Force = true;
-        public bool Divergence = true;
-        public bool Pressure = true;
+        public float MoveValue = 2;
+        public bool Move = true; // 移动
+        public bool Advect = true;// 平流
+        public bool Diffusion = true; // 扩散
+        public bool Force = true; // 力
+        public bool Divergence = true; // 散度
+        public bool Pressure = true; // 压力
 
 
         [Header("平流系数")]
@@ -56,7 +59,6 @@ namespace Wind.Core
 
         [Header("压力系数")]
         public float PressureValue = 1f;
-
 
         public Vector3Int Size = new Vector3Int(32, 16, 32);
         private Vector3 _WindCenter, _DivisionSize;
@@ -123,16 +125,17 @@ namespace Wind.Core
             this.VortexConfig.Dispose();
         }
 
-        public Vector3 worldPos, forceDir;
+        private Vector3 moveDir;
+        private Vector3 lastTickPos;
         void Update()
         {
             float dt = Time.deltaTime;
             float alpha, beta;
 
             Compute.SetFloat("DeltaTime", dt);
-            Compute.SetVector("worldPos", worldPos);
-            Compute.SetVector("forceDir", forceDir);
             Compute.SetFloat("_Time", Time.time);
+
+            
 
             // Advection
             if (Advect)
@@ -229,6 +232,25 @@ namespace Wind.Core
                 Compute.SetTexture(Kernels.Gradient, "U_out", VFB.V1);
                 Compute.Dispatch(Kernels.Gradient, ThreadCountX, ThreadCountY, ThreadCountZ);
                 Profiler.EndSample();
+            }
+
+            if (Move)
+            {
+                var dir = lastTickPos - this.transform.position;
+                var moveDistance = dir.sqrMagnitude;
+                if (moveDistance > 0.01f)
+                {
+                    lastTickPos = this.transform.position;
+                    moveDir = dir * Time.deltaTime * MoveValue;
+
+                    Profiler.BeginSample("WindSimulate.Move");
+                    Graphics.CopyTexture(VFB.V1, VFB.V2);
+                    Compute.SetVector("_MoveDir", moveDir);
+                    Compute.SetTexture(Kernels.Move, "U_in", VFB.V2);
+                    Compute.SetTexture(Kernels.Move, "U_out", VFB.V1);
+                    Compute.Dispatch(Kernels.Move, ThreadCountX, ThreadCountY, ThreadCountZ);
+                    Profiler.EndSample();
+                }
             }
 
             if (DisplayDivergence)
@@ -366,6 +388,20 @@ namespace Wind.Core
             Compute.SetInt("_BallCount", this.MotorBallConfig.GetCurrentIndex());
             Compute.SetBuffer(Kernels.AddForce, "_BallMotors", this.MotorBallConfig.ComputeBuffer);
         }
+
         #endregion
+
+        private void OnDrawGizmos()
+        {
+            var originColor = Gizmos.color;
+            Gizmos.color = Color.green;
+
+
+            Gizmos.DrawWireCube(this.transform.position, this.Size);
+
+
+            Gizmos.color = originColor;
+        }
+
     }
 }
