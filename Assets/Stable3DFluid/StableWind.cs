@@ -131,11 +131,12 @@ namespace Wind.Core
         {
             float dt = Time.deltaTime;
             float alpha, beta;
+            float dx = 1.0f / ResolutionX;
 
             Compute.SetFloat("DeltaTime", dt);
             Compute.SetFloat("_Time", Time.time);
 
-            
+
 
             // Advection
             if (Advect)
@@ -159,7 +160,7 @@ namespace Wind.Core
             if (Diffusion)
             {
                 Profiler.BeginSample("WindSimulate.Diffusion");
-                alpha = 1 / _V * dt;
+                alpha = 1 / (_V * dt);
                 beta = 1 / (6.0f + alpha);
                 Compute.SetFloat("Alpha", alpha);
                 Compute.SetFloat("Beta", beta);
@@ -212,7 +213,7 @@ namespace Wind.Core
                 Compute.Dispatch(Kernels.Clear3D, ThreadCountX, ThreadCountY, ThreadCountZ);
                 // Calc Gradient
                 Compute.SetTexture(Kernels.JacobiPressure, "Dv_in", VFB.DV);
-                alpha = -PressureValue;
+                alpha = - dx * dx * PressureValue;
                 beta = 1.0f / (6.0f);
                 Compute.SetFloat("Alpha", alpha);
                 Compute.SetFloat("Beta", beta);

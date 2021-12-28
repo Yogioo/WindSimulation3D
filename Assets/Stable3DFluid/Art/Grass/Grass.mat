@@ -67,7 +67,7 @@ Material:
     - _Height: 0.63
     - _Metallic: 0
     - _Mode: 0
-    - _MultiMove: 14.93
+    - _MultiMove: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
@@ -78,7 +78,7 @@ Material:
     - _UVSec: 0
     - _Width: 0.1
     - _ZWrite: 1
-    - _affectDist: 83.96
+    - _affectDist: 0
     - _alphaValue: 0.246
     m_Colors:
     - _Col: {r: 0, g: 1, b: 0, a: 1}
