@@ -11,6 +11,7 @@
 
 float DeltaTime;
 float AdvectValue;
+float AdvectFade;
 
 Texture3D<float3> U_in;
 SamplerState samplerU_in;
@@ -57,7 +58,7 @@ void Advect(uint3 tid : SV_DispatchThreadID)
     float3 uv = (tid + 0.5) / dim;
     float3 duv = AdvectValue * U_in[tid];
 
-    U_out[tid] = U_in.SampleLevel(samplerU_in, uv - duv, 0);
+    U_out[tid] = U_in.SampleLevel(samplerU_in, uv - duv, 0) * AdvectFade;
 }
 
 [numthreads(8, 8, 8)]

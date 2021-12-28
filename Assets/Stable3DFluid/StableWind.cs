@@ -6,6 +6,9 @@ using Wind.Motor;
 
 namespace Wind.Core
 {
+    /// <summary>
+    /// 风场模拟
+    /// </summary>
     public class StableWind : MonoBehaviour
     {
         static class Kernels
@@ -35,9 +38,8 @@ namespace Wind.Core
         public static StableWind Instance => _Instance;
         private static StableWind _Instance;
 
+        #region Config
         public ComputeShader Compute;
-
-        public float MoveValue = 2;
         public bool Move = true; // 移动
         public bool Advect = true;// 平流
         public bool Diffusion = true; // 扩散
@@ -45,24 +47,28 @@ namespace Wind.Core
         public bool Divergence = true; // 散度
         public bool Pressure = true; // 压力
 
-
+        [Header("风场移动时的移动距离")]
+        public float MoveValue = 2;
         [Header("平流系数")]
         public float AdvectValue = 1;
+        [Header("平流能量衰减")]
+        public float AdvectFade = 0.99f;
 
         [Header("扩散系数")]
         public float _V;
         [Header("扩散迭代次数"), Range(10, 25)]
         public int _Iteration = 20;
 
-        [Header("压力迭代次数")] //20-40
+        [Header("压力迭代次数"),Range(10,20)] //20-40
         public int _IterationPressure = 20;
 
         [Header("压力系数")]
         public float PressureValue = 1f;
-
+        [Header("风场大小")]
         public Vector3Int Size = new Vector3Int(32, 16, 32);
-        private Vector3 _WindCenter, _DivisionSize;
+        #endregion
 
+        #region Tmp
         int ThreadCountX { get { return Size.x / 8; } }
         int ThreadCountY { get { return Size.y / 8; } }
         int ThreadCountZ { get { return Size.z / 8; } }
@@ -70,8 +76,16 @@ namespace Wind.Core
         int ResolutionY { get { return ThreadCountY * 8; } }
         int ResolutionZ { get { return ThreadCountZ * 8; } }
 
+        [Header("显示散度贴图")]
         public bool DisplayDivergence = false;
+        [Header("显示压力贴图(需要取消勾选显示散度贴图)")]
         public bool DisplayPressure = false;
+
+        private Vector3 moveDir;
+        private Vector3 lastTickPos;
+        private Vector3 _DivisionSize;
+        #endregion
+
         RenderTexture AllocateBuffer(int componentCount, int width = 0, int height = 0)
         {
             var format = RenderTextureFormat.ARGBHalf;
@@ -125,8 +139,6 @@ namespace Wind.Core
             this.VortexConfig.Dispose();
         }
 
-        private Vector3 moveDir;
-        private Vector3 lastTickPos;
         void Update()
         {
             float dt = Time.deltaTime;
@@ -136,13 +148,12 @@ namespace Wind.Core
             Compute.SetFloat("DeltaTime", dt);
             Compute.SetFloat("_Time", Time.time);
 
-
-
             // Advection
             if (Advect)
             {
                 Profiler.BeginSample("WindSimulate.Advection");
                 Compute.SetFloat("AdvectValue", AdvectValue * dt);
+                Compute.SetFloat("AdvectFade", AdvectFade);
                 Compute.SetTexture(Kernels.Advect, "U_in", VFB.V1);
                 Compute.SetTexture(Kernels.Advect, "U_out", VFB.V2);
                 Compute.Dispatch(Kernels.Advect, ThreadCountX, ThreadCountY, ThreadCountZ);
@@ -260,9 +271,6 @@ namespace Wind.Core
             }
             else if (DisplayPressure)
             {
-                //var tmp = VFB.P3;
-                //VFB.P3 = VFB.P1;
-                //VFB.P1 = tmp;
                 Graphics.CopyTexture(VFB.P1, VFB.P3);
                 Shader.SetGlobalTexture("_VelocityMap", VFB.P3);
             }
