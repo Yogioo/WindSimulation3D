@@ -5217,7 +5217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &360619359
 Transform:
   m_ObjectHideFlags: 0
@@ -9868,14 +9868,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Compute: {fileID: 7200000, guid: cae7aa04f7d8a324cb88dcb712d76f9a, type: 3}
-  MoveValue: 2
   Move: 1
   Advect: 1
   Diffusion: 1
   Force: 1
   Divergence: 1
   Pressure: 1
+  MoveValue: 2
   AdvectValue: 1
+  AdvectFade: 0.99
   _V: 1
   _Iteration: 25
   _IterationPressure: 20
