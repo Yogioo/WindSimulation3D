@@ -81,8 +81,6 @@
         {
             velocityWS += motorOmni.force * direction * (distanceSq/motorOmni.radiusSq);
         }
-
-        // velocityWS = noiseForce(cellPosWS);
     }
     
     // 螺旋风
