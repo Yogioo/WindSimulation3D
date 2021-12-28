@@ -55,15 +55,15 @@ namespace Wind.Core
         public float AdvectFade = 0.99f;
 
         [Header("扩散系数")]
-        public float _V;
+        public float _V = 1;
         [Header("扩散迭代次数"), Range(10, 25)]
-        public int _Iteration = 20;
+        public int _Iteration = 25;
 
         [Header("压力迭代次数"),Range(10,20)] //20-40
         public int _IterationPressure = 20;
 
         [Header("压力系数")]
-        public float PressureValue = 1f;
+        public float PressureValue = .1f;
         [Header("风场大小")]
         public Vector3Int Size = new Vector3Int(32, 16, 32);
         #endregion
