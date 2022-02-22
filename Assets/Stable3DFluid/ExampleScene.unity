@@ -782,7 +782,7 @@ Transform:
   m_LocalScale: {x: 64, y: 0.1, z: 64}
   m_Children: []
   m_Father: {fileID: 1979782156}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &79301158
 BoxCollider:
@@ -5263,8 +5263,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f9486af5600f498a009e537b71585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 2.26
-  Force: 11.9
+  RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiply: 1
+  ForceIntensity: 5.92
+  RadiusIntensity: 11.36
+  MultiplyByMoveSpeed: 0
+  SpeedMultiply: 1
+  IsLoop: 1
   _WindSpawnMode: 1
 --- !u!1001 &369183081
 PrefabInstance:
@@ -9877,1532 +9929,27 @@ MonoBehaviour:
   MoveValue: 2
   AdvectValue: 1
   AdvectFade: 0.99
-  _V: 1
+  _V: 0.0001
+  DiffusionFade: 0.995
   _Iteration: 25
   _IterationPressure: 20
-  PressureValue: 0.1
   Size: {x: 64, y: 64, z: 64}
   DisplayDivergence: 0
   DisplayPressure: 0
+  _DivisionSize: {x: 0, y: 0, z: 0}
+  _WindCenter: {x: 0, y: 0, z: 0}
   DirectionalConfig:
-    MotorTrans:
-    - {fileID: 983473937}
-    - {fileID: 1666108472}
-    MotorValue:
-    - posWS: {x: 4.39, y: 0, z: -14.48}
-      force: 0.04039179
-      direction: {x: 0, y: 0, z: 1}
-      sqRadius: 6.6563997
-    - posWS: {x: 7.46, y: 0, z: 13.44}
-      force: 0.013645874
-      direction: {x: 0, y: 0, z: -1}
-      sqRadius: 5.8564005
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      direction: {x: 0, y: 0, z: 0}
-      sqRadius: 0
+    MotorTrans: []
+    MotorValue: []
   OmniConfig:
-    MotorTrans:
-    - {fileID: 1380691253}
-    - {fileID: 1206074863}
-    MotorValue:
-    - posWS: {x: -4.2, y: 0, z: 8.87}
-      force: 0.20159505
-      radiusSq: 7.8399997
-    - posWS: {x: -3.43, y: 0, z: -9.81}
-      force: -0.15938382
-      radiusSq: 7.8399997
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
+    MotorTrans: []
+    MotorValue: []
   VortexConfig:
-    MotorTrans:
-    - {fileID: 360619361}
-    - {fileID: 1275699380}
-    MotorValue:
-    - posWS: {x: -11.65, y: 0, z: 7.6}
-      force: 0.04330291
-      radiusSq: 5.1075997
-      axis: {x: 0, y: -1.0000001, z: -0.00000011920929}
-    - posWS: {x: -11.72, y: 0, z: -11.08}
-      force: -0.0327501
-      radiusSq: 5.1075997
-      axis: {x: 0, y: -1.0000001, z: -0.00000011920929}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      radiusSq: 0
-      axis: {x: 0, y: 0, z: 0}
+    MotorTrans: []
+    MotorValue: []
   MotorBallConfig:
-    MotorTrans:
-    - {fileID: 1530363456}
-    MotorValue:
-    - posWS: {x: 4.32, y: 0, z: 8.48}
-      force: 0.05203627
-      sqRadius: 5.8564005
-      direction: {x: 0, y: 0, z: -1}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
-    - posWS: {x: 0, y: 0, z: 0}
-      force: 0
-      sqRadius: 0
-      direction: {x: 0, y: 0, z: 0}
+    MotorTrans: []
+    MotorValue: []
 --- !u!4 &609253350
 Transform:
   m_ObjectHideFlags: 0
@@ -12512,7 +11059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &670283720
 Transform:
   m_ObjectHideFlags: 0
@@ -12620,6 +11167,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4397138013821388782, guid: 83ca0e3edc568cf438f56fe7e4e0e045,
     type: 3}
   m_PrefabInstance: {fileID: 682791215}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &689479819 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1543199587}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &691053063
 PrefabInstance:
@@ -16018,7 +14571,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 32, z: 32}
   m_Children: []
   m_Father: {fileID: 1979782156}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &950563289
 BoxCollider:
@@ -16753,8 +15306,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f9486af5600f498a009e537b71585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 2.58
-  Force: 1
+  RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiply: 1
+  ForceIntensity: 3
+  RadiusIntensity: 2
+  MultiplyByMoveSpeed: 0
+  SpeedMultiply: 1
+  IsLoop: 0
   _WindSpawnMode: 0
 --- !u!1001 &985962341
 PrefabInstance:
@@ -18857,7 +17462,7 @@ Transform:
   m_LocalScale: {x: 32, y: 32, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1979782156}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1085446795
 BoxCollider:
@@ -20865,8 +19470,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f9486af5600f498a009e537b71585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 2.8
-  Force: -43.8
+  RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiply: 1
+  ForceIntensity: 3
+  RadiusIntensity: 2
+  MultiplyByMoveSpeed: 0
+  SpeedMultiply: 1
+  IsLoop: 0
   _WindSpawnMode: 2
 --- !u!1001 &1206905796
 PrefabInstance:
@@ -21921,8 +20578,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f9486af5600f498a009e537b71585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 2.26
-  Force: -9
+  RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiply: 1
+  ForceIntensity: 3
+  RadiusIntensity: 2
+  MultiplyByMoveSpeed: 0
+  SpeedMultiply: 1
+  IsLoop: 0
   _WindSpawnMode: 1
 --- !u!1001 &1283281197
 PrefabInstance:
@@ -22887,8 +21596,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f9486af5600f498a009e537b71585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 2.8
-  Force: 55.4
+  RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiply: 1
+  ForceIntensity: 3
+  RadiusIntensity: 2
+  MultiplyByMoveSpeed: 0
+  SpeedMultiply: 1
+  IsLoop: 0
   _WindSpawnMode: 2
 --- !u!1001 &1382454088
 PrefabInstance:
@@ -23371,7 +22132,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 32, z: 32}
   m_Children: []
   m_Father: {fileID: 1979782156}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1412295435
 BoxCollider:
@@ -23914,7 +22675,7 @@ Transform:
   m_LocalScale: {x: 32, y: 32, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1979782156}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1429769930
 BoxCollider:
@@ -25416,6 +24177,167 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1484847919}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1493851923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1493851924}
+  - component: {fileID: 1493851928}
+  - component: {fileID: 1493851927}
+  - component: {fileID: 1493851926}
+  - component: {fileID: 1493851925}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1493851924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493851923}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -11.65, y: 0, z: 7.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1535425679}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1493851925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493851923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c1f9486af5600f498a009e537b71585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiply: 1
+  ForceIntensity: 1
+  RadiusIntensity: 1
+  MultiplyByMoveSpeed: 1
+  SpeedMultiply: 50
+  IsLoop: 1
+  _WindSpawnMode: 3
+--- !u!65 &1493851926
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493851923}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1493851927
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493851923}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1493851928
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493851923}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1495756664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26179,8 +25101,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f9486af5600f498a009e537b71585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 2.42
-  Force: 14.3
+  RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiply: 1
+  ForceIntensity: 3
+  RadiusIntensity: 2
+  MultiplyByMoveSpeed: 0
+  SpeedMultiply: 1
+  IsLoop: 0
   _WindSpawnMode: 3
 --- !u!1001 &1532270197
 PrefabInstance:
@@ -26396,6 +25370,7 @@ Transform:
   - {fileID: 1275699378}
   - {fileID: 1666108471}
   - {fileID: 1530363455}
+  - {fileID: 1493851924}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26669,6 +25644,100 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1542070920}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1543199587
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1979782156}
+    m_Modifications:
+    - target: {fileID: 5423346811630181169, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371024, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_Name
+      value: Visual Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371026, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371028, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371029, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.y
+      value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371029, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423346811688371029, guid: f0fa6dc079eaf6c4abe80f0d82678eaa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0fa6dc079eaf6c4abe80f0d82678eaa, type: 3}
 --- !u!1001 &1553234575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28050,7 +27119,7 @@ Transform:
   m_LocalScale: {x: 32, y: 32, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1979782156}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1608720017
 BoxCollider:
@@ -29055,8 +28124,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1f9486af5600f498a009e537b71585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 2.42
-  Force: 3.75
+  RadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ForceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiply: 1
+  ForceIntensity: 3
+  RadiusIntensity: 2
+  MultiplyByMoveSpeed: 0
+  SpeedMultiply: 1
+  IsLoop: 0
   _WindSpawnMode: 0
 --- !u!1001 &1669960593
 PrefabInstance:
@@ -31521,7 +30642,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 32, z: 32}
   m_Children: []
   m_Father: {fileID: 1979782156}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1775882617
 BoxCollider:
@@ -35120,6 +34241,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 689479819}
   - {fileID: 1775882616}
   - {fileID: 79301157}
   - {fileID: 1085446794}

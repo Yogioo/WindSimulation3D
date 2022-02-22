@@ -18,6 +18,25 @@ namespace Wind.Common
             direction = Vector3.forward;
         }
     }; 
+    
+    [System.Serializable]
+    public struct MotorCylinder
+    {
+        public Vector3 posWS;
+        public float force;
+        public float height;
+        public float sqRadius;
+        public Vector3 direction;
+        
+        public void Reset()
+        {
+            posWS = Vector3.zero;
+            force = 0;
+            height = 0;
+            sqRadius = 0;
+            direction = Vector3.forward;
+        }
+    }; 
 
     [System.Serializable]
     public struct MotorOmni

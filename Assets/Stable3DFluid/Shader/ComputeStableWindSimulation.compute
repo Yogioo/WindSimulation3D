@@ -1,5 +1,5 @@
 ﻿#pragma kernel Advect
-#pragma kernel Jacobi
+#pragma kernel Diffuse
 #pragma kernel Divergence
 #pragma kernel Gradient
 #pragma kernel AddForce
@@ -25,6 +25,7 @@ RWTexture3D<float> Dv_out;
 Texture3D<float> Dv_in;
 
 float Alpha,Beta;
+float DiffusionFade;
 float3 _DivisionSize,_WindCenter;
 float3 _MoveDir;
 
@@ -44,6 +45,9 @@ int _VortexCount;
 StructuredBuffer<MotorBall> _BallMotors;
 int _BallCount;
 
+StructuredBuffer<MotorCylinder> _CylinderMotors;
+int _CylinderCount;
+
 [numthreads(8,8,8)]
 void Advect(uint3 tid : SV_DispatchThreadID)
 {
@@ -62,7 +66,7 @@ void Advect(uint3 tid : SV_DispatchThreadID)
 }
 
 [numthreads(8, 8, 8)]
-void Jacobi(uint3 tid : SV_DispatchThreadID)
+void Diffuse(uint3 tid : SV_DispatchThreadID)
 {
     uint3 dim;
     U_out.GetDimensions(dim.x,dim.y,dim.z);
@@ -86,7 +90,7 @@ void Jacobi(uint3 tid : SV_DispatchThreadID)
     float3 B = U_inout[idxB];
     float3 F = U_inout[idxF];
 
-    U_out[tid] = (L + R + D + U + B + F + Alpha * U_in[tid]) * Beta;
+    U_out[tid] = ((L + R + D + U + B + F)* DiffusionFade + Alpha * U_in[tid]) * Beta;
 }
 
 [numthreads(8, 8, 8)]
@@ -96,7 +100,7 @@ void Divergence(uint3 tid : SV_DispatchThreadID)
     Dv_out.GetDimensions(dim.x,dim.y,dim.z);
     if (IsBorder(tid, dim))
     {
-        Dv_out[tid.xyz] = 0;
+        Dv_out[tid.xyz] = -U_in[dim];
         return;
     }
 
@@ -114,8 +118,8 @@ void Divergence(uint3 tid : SV_DispatchThreadID)
     float3 B = U_in[idxB];
     float3 F = U_in[idxF];
 
-    float halfrdx  = 1.0f / 3.0f;
-    Dv_out[tid] = ((R.x - L.x) + (U.y - D.y) + (F.z - B.z)) * halfrdx;
+    float h  = 1.0f;
+    Dv_out[tid] = -(1.0f/3.0f) * h * ((R.x - L.x) + (U.y - D.y) + (F.z - B.z));
 }
 
 [numthreads(8, 8, 8)]
@@ -125,7 +129,7 @@ void Gradient(uint3 tid : SV_DispatchThreadID)
     U_out.GetDimensions(dim.x,dim.y,dim.z);
     if (IsBorder(tid, dim))
     {
-        U_out[tid.xyz] = 0;
+        U_out[tid.xyz] -= P_in[dim];
         return;
     }
 
@@ -144,7 +148,8 @@ void Gradient(uint3 tid : SV_DispatchThreadID)
     float F = P_in[idxF];
 
     float halfrdx  = 1.0f/3.0f;
-    U_out[tid] -= float3((R - L) , (U - D) , (F - B)) * halfrdx;
+    float h = 1.0f;
+    U_out[tid] -= halfrdx * float3((R - L) , (U - D) , (F - B)) / h;
 }
 
 
@@ -198,7 +203,11 @@ void AddForce(uint3 tid: SV_DispatchThreadID)
     {
         ApplyMotorBall(cellPos, _BallMotors[count], velocity);
     }
-
+    for (count = 0; count < _CylinderCount; count ++)
+    {
+        ApplyMotorCylinder(cellPos,_CylinderMotors[count],velocity);
+    }    
+    
     // float mag = length(velocity - currentVelocity + 0.0001);
     U_out[tid] = velocity;
 }
@@ -234,7 +243,7 @@ void JacobiPressure(uint3 tid : SV_DispatchThreadID)
     float3 B = P_in[idxB];
     float3 F = P_in[idxF];
 
-    P_out[tid] = (L + R + D + U + B + F + Alpha * Dv_in[tid]) * Beta;
+    P_out[tid] = (L + R + D + U + B + F + Dv_in[tid]) / 6.0f;
 }
 
 
@@ -250,10 +259,10 @@ void Move(uint3 tid : SV_DispatchThreadID)
         return;
     }
 
-    float3 duv = _MoveDir;
+    float3 duv = _MoveDir.xyz / dim.xyz;//方向
     float3 uv = (tid + 0.5) / dim;
+    // float3 inValue = U_in.SampleLevel(samplerU_in, uv,0) +  U_in.SampleLevel(samplerU_in, uv - duv, 0) * _MoveDistance -   U_in.SampleLevel(samplerU_in, uv, 0) * _MoveDistance;
     float3 inValue = U_in.SampleLevel(samplerU_in, uv - duv, 0);
-
 
     U_out[tid] = inValue;
 }

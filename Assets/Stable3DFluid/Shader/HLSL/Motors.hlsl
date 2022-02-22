@@ -28,6 +28,14 @@
         float sqRadius;
         float3 direction;
     };
+    
+    struct MotorCylinder{
+        float3 posWS;
+        float force;
+        float height;
+        float sqRadius;
+        float3 direction;
+    };
 
     float _Time;
     
@@ -107,6 +115,36 @@
             velocityWS += motorBall.force * (motorBall.direction + dir) * noiseForce(cellPosWS);
 
         // velocityWS = noiseForce(cellPosWS);
+    }
+    
+    float sdCappedCylinder(float3 p, float3 a, float3 b, float r)
+    {
+        float3  ba = b - a;
+        float3  pa = p - a;
+        float baba = dot(ba,ba);
+        float paba = dot(pa,ba);
+        float x = length(pa*baba-ba*paba) - r*baba;
+        float y = abs(paba-baba*0.5)-baba*0.5;
+        float x2 = x*x;
+        float y2 = y*y*baba;
+        float d = (max(x,y)<0.0)?-min(x2,y2):(((x>0.0)?x2:0.0)+((y>0.0)?y2:0.0));
+        return sign(d)*sqrt(abs(d))/baba;
+    }
+    
+    // 计算任何一个点到一条线的距离 不超过半径大小
+    void ApplyMotorCylinder(in float3 cellPosWS, uniform MotorCylinder motorCylinder,in out float3 velocityWS)
+    {
+      float3 dir = cellPosWS - motorCylinder.posWS + 0.0001f;
+      float distanceSq = lengthSq(dir);
+        
+      float h = motorCylinder.height;
+      //float sdfCylinder = sdCappedCylinder(dir,(-motorCylinder.direction* h).zyx, (motorCylinder.direction * h).zyx, sqrt(motorCylinder.sqRadius));
+      float3 p0 = 0.;
+      float sdfCylinder = sdCappedCylinder(dir,p0, (motorCylinder.direction * h).xyz, sqrt(motorCylinder.sqRadius));
+      if(sdfCylinder <= 0 )
+      {
+            velocityWS +=  motorCylinder.direction  * motorCylinder.force;
+      }
     }
     
 #endif

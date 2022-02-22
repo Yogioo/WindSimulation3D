@@ -14,7 +14,7 @@ namespace Wind.Core
         static class Kernels
         {
             public const int Advect = 0;
-            public const int Jacobi = 1;
+            public const int Diffuse = 1;
             public const int Divergence = 2;
             public const int Gradient = 3;
             public const int AddForce = 4;
@@ -24,7 +24,7 @@ namespace Wind.Core
             public const int Move = 8;
 
         }
-        static class VFB
+        public static class VFB
         {
             public static RenderTexture V1;
             public static RenderTexture V2;
@@ -55,15 +55,16 @@ namespace Wind.Core
         public float AdvectFade = 0.99f;
 
         [Header("扩散系数")]
-        public float _V = 1;
+        public float _V = 0.0001f;
+
+        [Header("扩散能量衰减")]
+        public float DiffusionFade = 0.995f;
         [Header("扩散迭代次数"), Range(10, 25)]
         public int _Iteration = 25;
 
         [Header("压力迭代次数"),Range(10,20)] //20-40
         public int _IterationPressure = 20;
 
-        [Header("压力系数")]
-        public float PressureValue = .1f;
         [Header("风场大小")]
         public Vector3Int Size = new Vector3Int(32, 16, 32);
         #endregion
@@ -83,7 +84,8 @@ namespace Wind.Core
 
         private Vector3 moveDir;
         private Vector3 lastTickPos;
-        private Vector3 _DivisionSize;
+        public Vector3 _DivisionSize;
+        public Vector3 _WindCenter;
         #endregion
 
         RenderTexture AllocateBuffer(int componentCount, int width = 0, int height = 0)
@@ -113,7 +115,7 @@ namespace Wind.Core
                 InitMotors();
             }
         }
-        void Start()
+        void Awake()
         {
             _DivisionSize = new Vector3(ResolutionX / 2.0f, ResolutionY / 2.0f, ResolutionZ / 2.0f);
             VFB.V1 = AllocateBuffer(3);
@@ -123,7 +125,6 @@ namespace Wind.Core
             VFB.P1 = AllocateBuffer(1);
             VFB.P2 = AllocateBuffer(1);
             VFB.P3 = AllocateBuffer(1);
-
         }
         void OnDestroy()
         {
@@ -137,6 +138,7 @@ namespace Wind.Core
             this.DirectionalConfig.Dispose();
             this.OmniConfig.Dispose();
             this.VortexConfig.Dispose();
+            this.MotorBallConfig.Dispose();
         }
 
         void Update()
@@ -171,22 +173,23 @@ namespace Wind.Core
             if (Diffusion)
             {
                 Profiler.BeginSample("WindSimulate.Diffusion");
-                alpha = 1 / (_V * dt);
+                alpha = 1 / (_V * Size.x * Size.y * Size.z * dt);
                 beta = 1 / (6.0f + alpha);
                 Compute.SetFloat("Alpha", alpha);
                 Compute.SetFloat("Beta", beta);
+                Compute.SetFloat("DiffusionFade", DiffusionFade);
 
-                Compute.SetTexture(Kernels.Jacobi, "U_in", VFB.V1);
+                Compute.SetTexture(Kernels.Diffuse, "U_in", VFB.V1);
                 for (int i = 0; i < _Iteration; i++)
                 {
-                    Compute.SetTexture(Kernels.Jacobi, "U_inout", VFB.V3);
-                    Compute.SetTexture(Kernels.Jacobi, "U_out", VFB.V2);
-                    Compute.Dispatch(Kernels.Jacobi, ThreadCountX, ThreadCountY, ThreadCountZ);
+                    Compute.SetTexture(Kernels.Diffuse, "U_inout", VFB.V3);
+                    Compute.SetTexture(Kernels.Diffuse, "U_out", VFB.V2);
+                    Compute.Dispatch(Kernels.Diffuse, ThreadCountX, ThreadCountY, ThreadCountZ);
 
 
-                    Compute.SetTexture(Kernels.Jacobi, "U_inout", VFB.V2);
-                    Compute.SetTexture(Kernels.Jacobi, "U_out", VFB.V3);
-                    Compute.Dispatch(Kernels.Jacobi, ThreadCountX, ThreadCountY, ThreadCountZ);
+                    Compute.SetTexture(Kernels.Diffuse, "U_inout", VFB.V2);
+                    Compute.SetTexture(Kernels.Diffuse, "U_out", VFB.V3);
+                    Compute.Dispatch(Kernels.Diffuse, ThreadCountX, ThreadCountY, ThreadCountZ);
                 }
                 Graphics.CopyTexture(VFB.V3, VFB.V1);
                 Profiler.EndSample();
@@ -199,6 +202,7 @@ namespace Wind.Core
                 this.OmniConfig.UpdateComputeBuffer();
                 this.VortexConfig.UpdateComputeBuffer();
                 this.MotorBallConfig.UpdateComputeBuffer();
+                this.MotorCylinderConfig.UpdateComputeBuffer();
                 Compute.SetTexture(Kernels.AddForce, "U_out", VFB.V1);
                 Compute.Dispatch(Kernels.AddForce, ThreadCountX, ThreadCountY, ThreadCountZ);
                 Profiler.EndSample();
@@ -224,10 +228,6 @@ namespace Wind.Core
                 Compute.Dispatch(Kernels.Clear3D, ThreadCountX, ThreadCountY, ThreadCountZ);
                 // Calc Gradient
                 Compute.SetTexture(Kernels.JacobiPressure, "Dv_in", VFB.DV);
-                alpha = - dx * dx * PressureValue;
-                beta = 1.0f / (6.0f);
-                Compute.SetFloat("Alpha", alpha);
-                Compute.SetFloat("Beta", beta);
                 for (int i = 0; i < _IterationPressure; i++)
                 {
                     Compute.SetTexture(Kernels.JacobiPressure, "P_in", VFB.P1);
@@ -250,10 +250,10 @@ namespace Wind.Core
             {
                 var dir = lastTickPos - this.transform.position;
                 var moveDistance = dir.sqrMagnitude;
-                if (moveDistance > 0.01f)
+                //if (moveDistance > 0.0001f)
                 {
                     lastTickPos = this.transform.position;
-                    moveDir = dir * Time.deltaTime * MoveValue;
+                    moveDir = dir;
 
                     Profiler.BeginSample("WindSimulate.Move");
                     Graphics.CopyTexture(VFB.V1, VFB.V2);
@@ -279,7 +279,8 @@ namespace Wind.Core
                 Shader.SetGlobalTexture("_VelocityMap", VFB.V1);
             }
 
-            Shader.SetGlobalVector("_WindCenter", this.transform.position);
+            _WindCenter = this.transform.position;
+            Shader.SetGlobalVector("_WindCenter", _WindCenter);
             Shader.SetGlobalVector("_DivisionSize", _DivisionSize);
         }
 
@@ -288,6 +289,7 @@ namespace Wind.Core
         public MotorOmniConfig OmniConfig;
         public MotorVortexConfig VortexConfig;
         public MotorBallConfig MotorBallConfig;
+        public MotorCylinderConfig MotorCylinderConfig; 
         private void InitMotors()
         {
             this.DirectionalConfig = new MotorDirectionalConfig();
@@ -298,12 +300,15 @@ namespace Wind.Core
             this.VortexConfig.InitMotorConfig();
             this.MotorBallConfig = new MotorBallConfig();
             this.MotorBallConfig.InitMotorConfig();
+            this.MotorCylinderConfig = new MotorCylinderConfig();
+            this.MotorCylinderConfig.InitMotorConfig();
 
 
             UpdateMotorDirectional();
             UpdateMotorOmni();
             UpdateMotorVortex();
             UpdateMotorBall();
+            UpdateMotorCylinder();
         }
         public void AddMotorDirectional(WindMotor p_Motor)
         {
@@ -377,6 +382,25 @@ namespace Wind.Core
                 UpdateMotorBall();
             }
         }
+        public void AddMotorCylinder(WindMotor p_Motor)
+        {
+            this.MotorCylinderConfig.MotorTrans.Add(p_Motor);
+            UpdateMotorCylinder();
+        }
+        public void RemoveMotorCylinder(WindMotor p_Motor)
+        {
+            var index = this.MotorCylinderConfig.MotorTrans.IndexOf(p_Motor);
+            if (index > -1)
+            {
+                this.MotorCylinderConfig.MotorValue[index].Reset();
+            }
+
+            if (this.MotorCylinderConfig.MotorTrans.Remove(p_Motor))
+            {
+                UpdateMotorCylinder();
+            }
+        }
+        
         private void UpdateMotorDirectional()
         {
             Compute.SetInt("_MotorCount", this.DirectionalConfig.GetCurrentIndex());
@@ -397,7 +421,12 @@ namespace Wind.Core
             Compute.SetInt("_BallCount", this.MotorBallConfig.GetCurrentIndex());
             Compute.SetBuffer(Kernels.AddForce, "_BallMotors", this.MotorBallConfig.ComputeBuffer);
         }
-
+        private void UpdateMotorCylinder()
+        {
+            Compute.SetInt("_CylinderCount", this.MotorCylinderConfig.GetCurrentIndex());
+            Compute.SetBuffer(Kernels.AddForce, "_CylinderMotors", this.MotorCylinderConfig.ComputeBuffer);
+        }
+        
         #endregion
 
         private void OnDrawGizmos()
