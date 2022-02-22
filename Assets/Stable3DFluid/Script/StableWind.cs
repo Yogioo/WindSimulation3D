@@ -135,6 +135,8 @@ namespace Wind.Core
             Destroy(VFB.P1);
             Destroy(VFB.P2);
             Destroy(VFB.P3);
+            
+            this.MotorCylinderConfig.Dispose();
             this.DirectionalConfig.Dispose();
             this.OmniConfig.Dispose();
             this.VortexConfig.Dispose();
